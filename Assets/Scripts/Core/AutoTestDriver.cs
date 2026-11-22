@@ -55,7 +55,7 @@ namespace Lumo.Core
             if (SaveManager.Instance != null && SaveManager.Instance.Data != null)
             {
                 var d = SaveManager.Instance.Data;
-                d.freeExplore = true;      // every level selectable without unlock gating
+                d.highestUnlocked = 13;    // story path only; the run visits 1..13 in order
                 d.calmMode = true;         // untimed -> deterministic calm star rules
                 d.timedMode = false;
                 // practice mode skips CompleteLevel (no unlocks/badges/stars) and a

@@ -124,13 +124,13 @@ namespace Lumo.UI
             UIKit.Place(well.rectTransform, new Vector2(0.5f, 0.485f), Vector2.zero, new Vector2(820, 468));
 
             var body = UIKit.Label(card.gameObject, "Body",
-                "The wizard broke our magic crystal into 12 shards!\n\n" +
-                "Play 12 levels across the kingdom:\n" +
-                "Math levels - count, add and subtract.\n" +
-                "English levels - find words, spell and build sentences.\n" +
-                "Puzzle levels - match, mix potions and follow maps.\n\n" +
-                "Sail freely to any island and earn stars as you learn! Solve each island's challenges to earn a Crystal Shard.\n" +
-                "Stuck? Tap the Hint button - Lumo will help you!",
+                "The wizard broke the crystal into 12 pieces!\n\n" +
+                "12 islands to play:\n" +
+                "Math islands: count, add, take away.\n" +
+                "Word islands: find words, spell.\n" +
+                "Puzzle islands: match, maps, potions.\n\n" +
+                "Tap an island. Play! Win a shard!\n" +
+                "Stuck? Tap Hint!",
                 27, UIKit.Ink, TextAlignmentOptions.Center);
             body.lineSpacing = 22;
             var rt = body.GetComponent<RectTransform>();
@@ -218,7 +218,7 @@ namespace Lumo.UI
             UIKit.Stretch(dim.rectTransform);
 
             var card = UIKit.Card(Panel, "Card", UIKit.Parchment, GameAssets.Ui("ui_panel"));
-            UIKit.Place(card.rectTransform, new Vector2(0.5f, 0.5f), Vector2.zero, new Vector2(700, 560));
+            UIKit.Place(card.rectTransform, new Vector2(0.5f, 0.5f), Vector2.zero, new Vector2(700, 700));
 
             var plaque = UIKit.Panel(card.gameObject, "HeaderPlaque", UIKit.DeepNavy, GameAssets.Ui("ui_btn"));
             plaque.raycastTarget = false;
@@ -249,6 +249,13 @@ namespace Lumo.UI
             }, GameAssets.Ui("ui_btn"), 40);
             UIKit.Place(home.GetComponent<RectTransform>(), new Vector2(0.5f, 0.5f), new Vector2(0, -142), new Vector2(420, 88));
             UIKit.AttachButtonIcon(home, GameAssets.Ui("ui_icon_home"), 36f);
+
+            var exit = UIKit.TextButton(card.gameObject, "ExitGame", "Exit Game", new Vector2(420, 88), UIKit.Coral, () =>
+            {
+                Application.Quit();
+            }, GameAssets.Ui("ui_btn"), 40);
+            UIKit.Place(exit.GetComponent<RectTransform>(), new Vector2(0.5f, 0.5f), new Vector2(0, -244), new Vector2(420, 88));
+            UIKit.AttachButtonIcon(exit, GameAssets.Ui("ui_icon_close"), 36f);
         }
 
         public override void OnShow()

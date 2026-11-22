@@ -247,7 +247,7 @@ namespace Lumo.UI
             if (!EnsureScreen(name) || !_screens.TryGetValue(name, out s) || s == null)
             {
                 Debug.LogWarning("[UI] screen not registered: " + name);
-                Toast("Something went wrong — please try again");
+                Toast("Oops! Try again");
                 return;
             }
             if (_fadeRoutine != null)

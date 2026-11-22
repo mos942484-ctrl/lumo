@@ -60,7 +60,7 @@ namespace Lumo.UI
             var speakerLbl = UIKit.Label(speaker.gameObject, "Text", "Lumo the Owl", 21, UIKit.Ink);
             UIKit.Stretch(speakerLbl.rectTransform, 10, 2);
 
-            var bubbleText = UIKit.Label(bubble.gameObject, "Text", "Hello, young hero! Are you ready to explore the islands?", 30, UIKit.Ink);
+            var bubbleText = UIKit.Label(bubble.gameObject, "Text", "Hello! Are you ready to play?", 30, UIKit.Ink);
             UIKit.Stretch(bubbleText.rectTransform, 34, 26);
 
             // Right storybook menu board + button column
@@ -90,6 +90,11 @@ namespace Lumo.UI
                 () => M.OpenParentsArea(), GameAssets.Ui("ui_btn"), 32);
             UIKit.Place(parents.GetComponent<RectTransform>(), new Vector2(0.10f, 0.08f), Vector2.zero, new Vector2(260, 76));
             UIKit.AttachButtonIcon(parents, GameAssets.Ui("ui_icon_settings"), 34f);
+
+            var exit = UIKit.TextButton(Panel, "Exit", "Exit", new Vector2(260, 76), UIKit.Coral,
+                () => Application.Quit(), GameAssets.Ui("ui_btn"), 32);
+            UIKit.Place(exit.GetComponent<RectTransform>(), new Vector2(0.90f, 0.08f), Vector2.zero, new Vector2(260, 76));
+            UIKit.AttachButtonIcon(exit, GameAssets.Ui("ui_icon_close"), 34f);
         }
 
         void MakeButton(GameObject parent, string name, string label, Color c, Sprite icon, System.Action onClick, Sprite btnSprite = null)

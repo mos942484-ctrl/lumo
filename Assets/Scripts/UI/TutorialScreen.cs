@@ -114,8 +114,8 @@ namespace Lumo.UI
             var card = UIKit.Card(go, "Card", UIKit.Parchment, GameAssets.Ui("ui_panel"));
             UIKit.Place(card.rectTransform, new Vector2(0.5f, 0.54f), Vector2.zero, new Vector2(1080, 440));
             var body = UIKit.Label(card.gameObject, "Body",
-                "\"Hello, young hero! Our magic crystal has been broken into twelve pieces.\n\n" +
-                "We need your help! Solve the challenges, collect the stars, and save our kingdom!\"",
+                "\"Hello! The crystal broke into 12 pieces!\n\n" +
+                "Help us! Play games. Get stars!\"",
                 40, UIKit.Ink, TextAlignmentOptions.Center);
             UIKit.Stretch(body.rectTransform, 64, 44);
 
@@ -160,13 +160,13 @@ namespace Lumo.UI
                 if (correct)
                 {
                     AudioManager.Instance.PlayCorrect();
-                    M.Toast("Great! 5 is right! Now tap or drag!");
+                    M.Toast("Yes! 5 is right! Now tap or drag!");
                     NextStep();
                 }
                 else
                 {
                     AudioManager.Instance.PlaySoftRetry();
-                    M.Toast("Not that one - count the apples again!");
+                    M.Toast("Count again!");
                 }
             }, GameAssets.Ui("ui_btn"), 56);
             UIKit.Flex(b.gameObject, 160, 110);
@@ -201,7 +201,7 @@ namespace Lumo.UI
             UIKit.Stretch(numLbl.rectTransform);
             DragChip.Make(_tutorialChipGo, "5");
 
-            var helper = UIKit.Label(stage.gameObject, "Helper", "Tap or drag 5 into the highlighted box!", 26, UIKit.Brown);
+            var helper = UIKit.Label(stage.gameObject, "Helper", "Tap or drag 5 into the box!", 26, UIKit.Brown);
             UIKit.Place(helper.rectTransform, new Vector2(0.5f, 0.14f), Vector2.zero, new Vector2(900, 44));
             return go;
         }
@@ -225,12 +225,12 @@ namespace Lumo.UI
 
                 var filled = UIKit.Label(_tutorialSlotGo, "Filled", "5", 76, Color.white);
                 UIKit.Stretch(filled.rectTransform);
-                M.Toast("Perfect! You are ready for the islands!");
+                M.Toast("Yes! You are ready!");
                 _advanceRoutine = M.StartCoroutine(PopAndAdvance(filled.transform));
                 return true;
             }
             AudioManager.Instance.PlaySoftRetry();
-            M.Toast("Count the apples first - then tap or drag the right number!");
+            M.Toast("Count. Then tap or drag!");
             return false;
         }
 
@@ -264,10 +264,10 @@ namespace Lumo.UI
             var card = UIKit.Card(go, "Card", UIKit.Parchment, GameAssets.Ui("ui_panel"));
             UIKit.Place(card.rectTransform, new Vector2(0.5f, 0.56f), Vector2.zero, new Vector2(1140, 420));
             var body = UIKit.Label(card.gameObject, "Body",
-                "3 things to remember:\n\n" +
-                "1) Take your time - sail to any island and earn stars as you learn!\n" +
-                "2) Stuck? Tap the Hint button and Lumo will help you.\n" +
-                "3) Don't worry about mistakes - you can always try again!",
+                "3 things:\n\n" +
+                "1) Take your time.\n" +
+                "2) Stuck? Tap Hint. Lumo helps you.\n" +
+                "3) Mistakes are okay. Try again!",
                 36, UIKit.Ink, TextAlignmentOptions.Center);
             UIKit.Stretch(body.rectTransform, 48, 36);
 
@@ -314,21 +314,21 @@ namespace Lumo.UI
             switch (idx)
             {
                 case 0:
-                    _stepTitle.text = "Welcome to the Kingdom!";
-                    _hintLine.text = "King Arqam & Lumo need your help to restore the Crystal of Knowledge!";
+                    _stepTitle.text = "Hello!";
+                    _hintLine.text = "Help us fix the Crystal!";
                     AudioManager.Instance.PlayVoice("vo_story_intro");
                     break;
                 case 1:
-                    _stepTitle.text = "Tutorial 1: Tap the answer!";
-                    _hintLine.text = "Lumo: Count the apples with me - tap the right number!";
+                    _stepTitle.text = "Tap the answer!";
+                    _hintLine.text = "Lumo: Count. Tap the number!";
                     break;
                 case 2:
-                    _stepTitle.text = "Tutorial 2: Tap or drag!";
-                    _hintLine.text = "Lumo: Tap or drag the number 5 into the highlighted box!";
+                    _stepTitle.text = "Tap or drag!";
+                    _hintLine.text = "Lumo: Tap or drag 5 into the box!";
                     break;
                 default:
-                    _stepTitle.text = "Tutorial 3: Explore at your own pace!";
-                    _hintLine.text = "Lumo: You are ready for the islands!";
+                    _stepTitle.text = "You are ready!";
+                    _hintLine.text = "Lumo: You are ready!";
                     break;
             }
         }

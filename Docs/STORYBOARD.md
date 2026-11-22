@@ -153,7 +153,7 @@ stateDiagram-v2
 
 | Frame | Step Title | Visual Staging | Dialogue / VO & Action |
 |---|---|---|---|
-| **Frame 04 (Step 1/4)** | `"Welcome to the Kingdom!"` | **Left:** `char_king.png` (`260×310`). **Center:** Parchment story card (`1080×440`). **Right:** `char_shadow.png` (`240×280`) + floating `obj_shard.png` (`110×110`). | **VO (`vo_story_intro`):** *"Hello, young hero! Our magic crystal has been broken into twelve pieces. We need your help! Solve the challenges, collect the stars, and save our kingdom!"* Player taps **"Let's Start!"**. |
+| **Frame 04 (Step 1/4)** | `"Welcome to the Kingdom!"` | **Left:** `char_king.png` (`260×310`). **Center:** Parchment story card (`1080×440`). **Right:** `char_shadow.png` (`240×280`) + floating `obj_shard.png` (`110×110`). | **VO (`vo_story_intro`):** *"Hello! Our magic crystal broke into twelve pieces. Help us! Play the games, get the stars, and save our kingdom!"* (on-screen card text, simplified English; `vo_story_intro` audio unchanged) Player taps **"Let's Start!"**. |
 | **Frame 05 (Step 2/4)** | `"Tutorial 1: Tap the answer!"` | **Center Stage:** 5 red apples (`obj_apple.png`) in a row above `"2 apples + 3 apples = ?"`. **Bottom Options:** `[ 4 ]`, `[ 5 ]`, `[ 6 ]`. | **Lumo Guide:** *"Count the apples with me - tap the right number!"* Tapping `4` or `6` gives gentle retry toast; tapping `5` plays `sfx_correct` and advances. |
 | **Frame 06 (Step 3/4)** | `"Tutorial 2: Tap or drag!"` | **Center Stage:** `"2 apples + 3 apples = ?"` above a gold-outlined drop slot (`ui_slot.png`, left) and an orange draggable/tappable chip `[ 5 ]` (right). | **Lumo Guide:** *"Tap or drag the number 5 into the highlighted box!"* Dropping or tapping `5` turns the slot green, plays `sfx_collect`, scales the number with a pop animation, and advances. |
 | **Frame 07 (Step 4/4)** | `"Tutorial 3: Explore at your own pace!"` | **Center Card:** Displays the **3 Golden Rules of Wonder Islands**: (1) Sail freely & earn stars, (2) Tap Hint anytime for Lumo's help, (3) Mistakes are part of learning—try again! | **Lumo Guide:** *"You are ready for the islands!"* Tapping **"I'm ready!"** sets `tutorialDone = true` and opens the **World Map**. |
@@ -231,7 +231,7 @@ Every island opens with the **Storybook Chapter Intro (`LevelIntroScreen.cs`)** 
 | **1** | `L1R1` | `math-choice` | `addition` | *"2 apples and 1 apple — how many apples together?"* | Adaptive easier (`V_ADD_E*`) / harder (`V_ADD_H*`) pools | Two visual fruit cards (`2 apples` + `1 apple`) slide together on correct tap (`3`). |
 | **2** | `L1R2` | `math-choice` | `addition` | *"3 bananas and 2 bananas — how many bananas together?"* | Adaptive easier/harder pools | `obj_banana` groups (`3` + `2`) join into `5`. |
 | **3** | `L1R3` | `math-choice` | `addition` | *"4 apples and 3 apples — how many apples together?"* | Adaptive easier/harder pools | `obj_apple` groups (`4` + `3`) join into `7`. |
-| **4** | `P2_L1R4` | `math-choice` | `counting` | *"Count the mountain stars carefully! How many stars are there?"* (`12` stars) | **5–7:** `6` apples (`V_P2_L1R4_57`)<br>**11–12:** `15` gems (`V_P2_L1R4_1112`) | Single large counting tray (`2×6` grid of `obj_star.png`). |
+| **4** | `P2_L1R4` | `math-choice` | `counting` | *"How many stars are on the mountain? Count them!"* (`12` stars) | **5–7:** `6` apples (`V_P2_L1R4_57`)<br>**11–12:** `15` gems (`V_P2_L1R4_1112`) | Single large counting tray (`2×6` grid of `obj_star.png`). |
 | **5** | `P2_L1R5` | `choice-card` | `addition` | *"Find the number with 3 tens and 5 ones!"* (`35`) | **5–7:** `3 + 4 = 7`<br>**11–12:** Mystery number riddle (`24`) | Clue plaque + 3 large parchment choice buttons. |
 | **6** | `P2_L1R6` | `choice-card` | `addition` | *"What time will the mountain clock show in 2 hours?"* (`5 o'clock`) | **5–7:** Coin addition (`5 + 2 = 7`)<br>**11–12:** Elapsed time (`9:30 + 45m = 10:15`) | Story riddle card + 3 time choice buttons. |
 
@@ -487,7 +487,7 @@ Every island opens with the **Storybook Chapter Intro (`LevelIntroScreen.cs`)** 
 ```text
 +--------------------------------------------------------------------------+
 |     +==============================================================+     |
-|     |          Congratulations! You Saved the Kingdom!             |     |
+|     |                 You Saved the Kingdom!                       |     |
 |     +==============================================================+     |
 |                        [Trophy]  ( Crystal )  [Trophy]                   |
 |                                                                          |

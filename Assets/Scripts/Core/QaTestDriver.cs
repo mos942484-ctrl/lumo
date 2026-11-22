@@ -19,9 +19,9 @@ namespace Lumo.Core
         int _mistakes;
         float _elapsedAtAnswer;
         bool _hintAfter2, _solutionAfter3, _practiceTimerNeverRan;
-        bool _practiceWasOn, _timedWasOn, _freeExploreWasOn;
+        bool _practiceWasOn, _timedWasOn;
         int _ageBandWas, _lastLevelWas;
-        bool _freeSailOk, _ageBandOk, _calmOk, _practiceOk, _pauseOk, _realUiNavOk, _saveOk;
+        bool _storyLockOk, _ageBandOk, _calmOk, _practiceOk, _pauseOk, _realUiNavOk, _saveOk;
 
         void Update()
         {
@@ -36,18 +36,18 @@ namespace Lumo.Core
 
             switch (_phase)
             {
-                case 0: // ---- Phase 1 checks (Free Sail, Age Band routing, Calm Untimed Default) ----
+                case 0: // ---- Phase 1 checks (Story Lock, Age Band routing, Calm Untimed Default) ----
                     var d = SaveManager.Instance.Data;
                     _practiceWasOn = d.practiceMode;
                     _timedWasOn = d.timedMode;
-                    _freeExploreWasOn = d.freeExplore;
                     _ageBandWas = d.ageBand;
                     _lastLevelWas = d.lastLevel;
 
-                    // Free Sail
-                    d.freeExplore = true;
-                    _freeSailOk = LevelManager.Instance != null && LevelManager.Instance.IsUnlocked(12);
-                    Debug.Log("[QA] free sail => " + (_freeSailOk ? "PASS" : "FAIL"));
+                    // Story path lock: the highest unlocked island is open, the next is not
+                    int hu = LevelManager.Instance != null ? LevelManager.Instance.HighestUnlocked : 1;
+                    _storyLockOk = LevelManager.Instance != null && LevelManager.Instance.IsUnlocked(hu)
+                                   && (hu >= 13 || !LevelManager.Instance.IsUnlocked(hu + 1));
+                    Debug.Log("[QA] story lock => " + (_storyLockOk ? "PASS" : "FAIL"));
 
                     // Age Band routing on L1R1 (save/restore skill 0 flags around check)
                     var skill0 = SaveManager.Instance.Skill(0);
@@ -174,7 +174,6 @@ namespace Lumo.Core
 
                     TimerManager.Instance.Stop();
                     gm.AbortLevel();
-                    SaveManager.Instance.Data.freeExplore = true;
                     m.Show("MainMenu");
                     _phase = 20;
                     _phaseTimer = 0f;
@@ -263,7 +262,6 @@ namespace Lumo.Core
                     var data = SaveManager.Instance.Data;
                     data.practiceMode = _practiceWasOn;
                     data.timedMode = _timedWasOn;
-                    data.freeExplore = _freeExploreWasOn;
                     data.ageBand = _ageBandWas;
                     data.lastLevel = _lastLevelWas;
                     SaveManager.Instance.Save();
@@ -272,12 +270,11 @@ namespace Lumo.Core
                     _saveOk = reloaded.totalStars == SaveManager.Instance.Data.totalStars &&
                               reloaded.highestUnlocked == SaveManager.Instance.Data.highestUnlocked &&
                               reloaded.ageBand == _ageBandWas &&
-                              reloaded.freeExplore == _freeExploreWasOn &&
                               reloaded.timedMode == _timedWasOn;
                     Debug.Log("[QA] save persistence => " + (_saveOk ? "PASS" : "FAIL") +
                               " (stars=" + SaveManager.Instance.Data.totalStars + " unlocked=" +
                               SaveManager.Instance.Data.highestUnlocked + ")");
-                    bool allOk = _freeSailOk && _ageBandOk && _calmOk && _practiceOk && _pauseOk && _realUiNavOk && _saveOk;
+                    bool allOk = _storyLockOk && _ageBandOk && _calmOk && _practiceOk && _pauseOk && _realUiNavOk && _saveOk;
                     Debug.Log("[QA] ALL CHECKS " + (allOk ? "PASS" : "SEE LINES ABOVE"));
                     TimerManager.Instance.Stop();
                     _phase = 6;

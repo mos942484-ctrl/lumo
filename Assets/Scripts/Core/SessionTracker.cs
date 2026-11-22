@@ -113,7 +113,7 @@ namespace Lumo.Core
                 islands.Add(IslandCatalog.Get(id).IslandName);
             sb.AppendLine(islands.Count > 0
                 ? "Today you visited: " + string.Join(", ", islands.ToArray())
-                : "Today you set sail - the sea awaits!");
+                : "Today you played!");
 
             if (_levelsCompleted.Count > 0)
             {
@@ -126,7 +126,7 @@ namespace Lumo.Core
             if (_wordsClean.Count > 0)
                 sb.AppendLine("Words you remembered: " + string.Join(", ", new List<string>(_wordsClean).ToArray()));
             else if (d != null && d.reviewWords != null && d.reviewWords.Length > 0)
-                sb.AppendLine("Some words are waiting for tomorrow - that is how memory grows!");
+                sb.AppendLine("Some words wait for tomorrow!");
 
             var gains = MasteryGains(bank, d);
             foreach (var g in gains)

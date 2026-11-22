@@ -64,7 +64,8 @@ namespace Lumo.Core
         // Wonder Isles Phase 1 fields (flat primitives/arrays for JsonUtility)
         public bool calmMode = false;
         public bool timedMode = false;
-        public bool freeExplore = true;
+        // freeExplore (Free Sail) removed — story path only, unlock is strictly sequential.
+        // Old saves may still carry a "freeExplore" JSON key; JsonUtility ignores unknown fields.
         public int ageBand = 1;
         public string parentPin = "";
         public int dailyLimitMinutes = 0;
@@ -197,7 +198,6 @@ namespace Lumo.Core
             if (d == null) return NewSave();
             if (d.version < 3)
             {
-                d.freeExplore = true;
                 d.ageBand = GameRules.AgeBand8To10;
                 d.timedMode = false;
                 d.calmMode = false;

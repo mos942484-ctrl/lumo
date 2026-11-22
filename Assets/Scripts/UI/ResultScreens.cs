@@ -111,7 +111,7 @@ namespace Lumo.UI
             sb.AppendLine("Stars earned: " + outcome.StarsThisRun + "   (level best: " + total + "/" + max + ")");
             sb.AppendLine("XP: +" + outcome.XpEarned + "   (total: " + SaveManager.Instance.Data.totalXp + ")");
             if (outcome.PerfectNoHint)
-                sb.AppendLine(outcome.XpEarned > 0 ? "Perfect! No hints used: +10 bonus XP!" : "Perfect! Solved with no hints used!");
+                sb.AppendLine(outcome.XpEarned > 0 ? "No hints! +10 bonus XP!" : "No hints! Great job!");
             foreach (var b in outcome.NewBadges) sb.AppendLine("New badge: " + b + "!");
             if (gm.CurrentLevelId <= 12) sb.AppendLine("You earned a Crystal Shard!");
             body.text = sb.ToString();
@@ -289,7 +289,7 @@ namespace Lumo.UI
             plaque.raycastTarget = false;
             UIKit.Place(plaque.rectTransform, new Vector2(0.5f, 0.91f), Vector2.zero, new Vector2(1540, 98));
 
-            var title = UIKit.Label(Panel, "Title", "Congratulations! You Saved the Kingdom!", 62, UIKit.Gold);
+            var title = UIKit.Label(Panel, "Title", "You Saved the Kingdom!", 62, UIKit.Gold);
             UIKit.Place(title.rectTransform, new Vector2(0.5f, 0.91f), Vector2.zero, new Vector2(1480, 92));
             UIKit.StyleTitle(title);
 

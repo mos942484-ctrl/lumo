@@ -123,7 +123,7 @@ namespace Lumo.UI
                 if (lv.ilos != null && lv.ilos.Length > 0)
                 {
                     var kids = new System.Text.StringBuilder();
-                    kids.Append("By the end of this island you can:  ");
+                    kids.Append("You will learn:  ");
                     for (int i = 0; i < lv.ilos.Length; i++)
                     {
                         if (lv.ilos[i] != null && !string.IsNullOrEmpty(lv.ilos[i].kidText))

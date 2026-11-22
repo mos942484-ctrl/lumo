@@ -276,17 +276,16 @@ public static class LumoTests
         var v2 = new SaveData
         {
             version = 2,
-            freeExplore = false,
             ageBand = GameRules.AgeBand5To7,
             timedMode = true,
             calmMode = true
         };
         var upgraded = SaveManager.Normalize(v2);
-        if (upgraded.version != SaveData.CurrentVersion || !upgraded.freeExplore || upgraded.ageBand != GameRules.AgeBand8To10 || upgraded.timedMode || upgraded.calmMode)
+        if (upgraded.version != SaveData.CurrentVersion || upgraded.ageBand != GameRules.AgeBand8To10 || upgraded.timedMode || upgraded.calmMode)
         {
             failures++;
             Debug.LogError("[LumoTests] v2 -> current upgrade check failed (version=" + upgraded.version +
-                           " freeExplore=" + upgraded.freeExplore + " ageBand=" + upgraded.ageBand + ")");
+                           " ageBand=" + upgraded.ageBand + ")");
         }
 
         if (failures == 0)
@@ -511,6 +510,7 @@ public static class LumoTests
         popSave.islandSeconds[4] = 180; // Art Studio (level 5)
         popSave.levelRecords[0].completed = true;
         popSave.levelRecords[1].completed = true;
+        popSave.highestUnlocked = 3;    // story path: finishing level 2 unlocks level 3
         string popFav = ParentsPanel.GetMostExploredIsland(popSave);
         string popNext = ParentsPanel.GetSuggestedNextIsland(popSave);
         if (string.IsNullOrEmpty(popFav) || !validNames.Contains(popFav) || popFav != IslandCatalog.Get(5).IslandName ||

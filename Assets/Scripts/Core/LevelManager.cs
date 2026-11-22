@@ -3,8 +3,9 @@ using UnityEngine;
 namespace Lumo.Core
 {
     /// <summary>
-    /// Unlocking rules (§7): completing a level unlocks the next regardless of stars;
-    /// Level 13 opens only after all 12 are complete (no star requirement).
+    /// Unlocking rules (§7), story path only: completing a level unlocks the next
+    /// regardless of stars; Level 13 opens only after all 12 are complete.
+    /// Free Sail was removed — there is no way to skip ahead.
     /// </summary>
     public class LevelManager : MonoBehaviour
     {
@@ -29,11 +30,9 @@ namespace Lumo.Core
             return levelId <= SaveManager.Instance.Data.highestUnlocked;
         }
 
+        /// <summary>Story path only — the sequential rule with no free-sail bypass.</summary>
         public bool IsUnlocked(int levelId)
         {
-            if (levelId < 1 || levelId > 13) return false;
-            if (SaveManager.Instance != null && SaveManager.Instance.Data != null && SaveManager.Instance.Data.freeExplore)
-                return true;
             return IsStoryUnlocked(levelId);
         }
 

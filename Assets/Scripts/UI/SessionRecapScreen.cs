@@ -71,7 +71,7 @@ namespace Lumo.UI
             {
                 _body.text = tracker != null
                     ? tracker.BuildRecapText(bank, data)
-                    : "Today's adventure is saved for tomorrow!";
+                    : "Saved for tomorrow!";
             }
             if (!GameManager.Instance.IsCalmMode)
                 M.StartCoroutine(ConfettiEffect.Play(Panel, false));

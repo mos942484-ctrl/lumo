@@ -177,7 +177,7 @@ namespace Lumo.UI
             string variantId = _struggleVariantId;
             DismissStruggleChoice();
             if (string.IsNullOrEmpty(variantId)) return;
-            ShowToast("Here is a gentler path!");
+            ShowToast("Here is an easier game!");
             GameManager.Instance.ReplaceCurrentChallenge(variantId);
         }
 
@@ -386,7 +386,7 @@ namespace Lumo.UI
                 case "music-play": _module = new MusicPlayModule(); break;
                 default:
                     _module = null;
-                    var soon = UIKit.Label(ActivityArea, "ComingSoon", "This challenge type is coming next!", 56, UIKit.Ink);
+                    var soon = UIKit.Label(ActivityArea, "ComingSoon", "New games are coming!", 56, UIKit.Ink);
                     UIKit.Place(soon.rectTransform, new Vector2(0.5f, 0.5f), Vector2.zero, new Vector2(1000, 100));
                     break;
             }

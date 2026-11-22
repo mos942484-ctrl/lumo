@@ -9,15 +9,15 @@ namespace Lumo.UI
 {
     /// <summary>
     /// Wonder Islands Archipelago map: 13 themed islands arranged in 3 staggered rows.
-    /// Supports Free Sail (all 13 islands open) and Story Path (sequential unlock).
+    /// Story path only — islands unlock in order (Free Sail was removed).
     /// </summary>
     public class WorldMapScreen : ScreenBase
     {
         public override string Name { get { return "WorldMap"; } }
 
         readonly IslandNode[] _nodes = new IslandNode[13];
-        TMP_Text _stats, _modeLabel, _helperText;
-        Image _modeImg, _heroImg;
+        TMP_Text _stats, _helperText;
+        Image _heroImg;
         Coroutine _sailRoutine, _bobRoutine;
         bool _sailing;
 
@@ -63,19 +63,8 @@ namespace Lumo.UI
             UIKit.Place(back.GetComponent<RectTransform>(), new Vector2(0.025f, 0.94f), Vector2.zero, new Vector2(210, 68), new Vector2(0f, 0.5f));
             UIKit.AttachButtonIcon(back, GameAssets.Ui("ui_icon_home"), 32f);
 
-            var modeBtn = UIKit.TextButton(Panel, "ModeToggle", "Free Sail", new Vector2(260, 66), UIKit.Teal, () =>
-            {
-                SaveManager.Instance.Data.freeExplore = !SaveManager.Instance.Data.freeExplore;
-                SaveManager.Instance.Save();
-                Refresh();
-            }, GameAssets.Ui("ui_btn"), 26);
-            UIKit.Place(modeBtn.GetComponent<RectTransform>(), new Vector2(0.22f, 0.94f), Vector2.zero, new Vector2(260, 66));
-            UIKit.AttachButtonIcon(modeBtn, GameAssets.Ui("ui_icon_map"), 32f);
-            _modeImg = modeBtn.GetComponent<Image>();
-            _modeLabel = modeBtn.GetComponentInChildren<TMP_Text>(true);
-
             var title = UIKit.Label(Panel, "Title", "Wonder Islands", 50, UIKit.Yellow);
-            UIKit.Place(title.rectTransform, new Vector2(0.485f, 0.94f), Vector2.zero, new Vector2(430, 76));
+            UIKit.Place(title.rectTransform, new Vector2(0.5f, 0.94f), Vector2.zero, new Vector2(430, 76));
             UIKit.StyleTitle(title);
 
             var statsPill = UIKit.Card(Panel, "StatsPill", UIKit.Parchment, GameAssets.Ui("ui_panel"));
@@ -200,7 +189,7 @@ namespace Lumo.UI
             if (_sailing) return;
             if (!LevelManager.Instance.IsUnlocked(levelId))
             {
-                M.Toast(levelId == 13 ? "Finish all 12 islands to open the finale!" : "Finish the previous island first!");
+                M.Toast(levelId == 13 ? "Play all 12 islands first!" : "Not open yet! Play more islands!");
                 return;
             }
             StopIdleBob();
@@ -216,8 +205,8 @@ namespace Lumo.UI
             if (!unlocked)
             {
                 _helperText.text = levelId == 13
-                    ? info.IslandName + " - Finish all 12 islands to open!"
-                    : info.IslandName + " - Finish island " + (levelId - 1) + " first!";
+                    ? info.IslandName + " - Play all 12 islands first!"
+                    : info.IslandName + " - Play island " + (levelId - 1) + " first!";
                 return;
             }
             var rec = SaveManager.Instance != null ? SaveManager.Instance.Record(levelId) : null;
@@ -233,8 +222,7 @@ namespace Lumo.UI
 
         static string DefaultHelperText()
         {
-            bool freeExplore = SaveManager.Instance == null || SaveManager.Instance.Data == null || SaveManager.Instance.Data.freeExplore;
-            return freeExplore ? "Tap any island to sail there!" : "Follow the crystal path!";
+            return "Follow the crystal path!";
         }
 
         void StopIdleBob()
@@ -354,12 +342,10 @@ namespace Lumo.UI
                 node.Num.text = id.ToString();
                 node.Stars.text = (rec.completed || earned > 0) ? earned + "/" + max : "";
                 if (node.NextBadge != null)
-                    node.NextBadge.SetActive(d.freeExplore && id == nextLevel && !rec.completed);
+                    node.NextBadge.SetActive(id == nextLevel && !rec.completed);
                 node.Btn.interactable = true;
             }
 
-            if (_modeLabel != null) _modeLabel.text = d.freeExplore ? "Free Sail" : "Story Path";
-            if (_modeImg != null) _modeImg.color = d.freeExplore ? UIKit.Teal : UIKit.Orange;
             RestoreDefaultHelper();
 
             int shards = ScoreManager.Instance != null ? ScoreManager.Instance.ShardsCollected() : 0;

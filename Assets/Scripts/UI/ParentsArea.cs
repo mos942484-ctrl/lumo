@@ -285,7 +285,7 @@ namespace Lumo.UI
 
         Button _limitBtn, _extraBtn, _calmBtn, _musicBtn, _sfxBtn, _voiceBtn;
         Button _myWordsBtn; // LXD Phase D5
-        Button _freeSailBtn, _timedBtn, _practiceBtn;
+        Button _timedBtn, _practiceBtn;
         Button _setPinBtn, _removePinBtn;
         Button _resetProgressBtn, _eraseAllBtn;
 
@@ -477,16 +477,9 @@ namespace Lumo.UI
                 Refresh();
             }, 23);
 
-            // Gameplay modes (3 switches)
+            // Gameplay modes (2 switches — Free Sail removed, story path only)
             var modeRow = UIKit.HLayout(col.gameObject, "ModeRow", 14f, TextAnchor.MiddleCenter, false);
             UIKit.Flex(modeRow.gameObject, 790, 58);
-            _freeSailBtn = MakeColBtn(modeRow.gameObject, "FreeSail", "Free Sail: ON", 254, 56, UIKit.Cream, () =>
-            {
-                DisarmResets();
-                SaveManager.Instance.Data.freeExplore = !SaveManager.Instance.Data.freeExplore;
-                SaveManager.Instance.Save();
-                Refresh();
-            }, 22);
             _timedBtn = MakeColBtn(modeRow.gameObject, "TimedMode", "Timed: OFF", 254, 56, UIKit.Cream, () =>
             {
                 DisarmResets();
@@ -851,7 +844,6 @@ namespace Lumo.UI
             SetToggleStyle(_musicBtn, "Music: ", d.musicOn, UIKit.Green);
             SetToggleStyle(_sfxBtn, "SFX: ", d.soundOn, UIKit.Green);
             SetToggleStyle(_voiceBtn, "Voice: ", d.voiceOn, UIKit.Green);
-            SetToggleStyle(_freeSailBtn, "Free Sail: ", d.freeExplore, UIKit.Teal);
             SetToggleStyle(_timedBtn, "Timed Mode: ", d.timedMode, UIKit.Orange);
             SetToggleStyle(_practiceBtn, "Practice: ", d.practiceMode, UIKit.Purple);
 
@@ -925,7 +917,7 @@ namespace Lumo.UI
                 bool done = rec != null && rec.completed;
                 if (done) continue;
 
-                bool accessible = data.freeExplore || (id <= 12 ? id <= highest : allCoreComplete);
+                bool accessible = id <= 12 ? id <= highest : allCoreComplete;
                 if (accessible) return IslandCatalog.Get(id).IslandName;
             }
 
@@ -1279,7 +1271,7 @@ namespace Lumo.UI
             {
                 if (list.Count >= 5)
                 {
-                    if (_status != null) _status.text = "Five words is plenty - remove one first!";
+                    if (_status != null) _status.text = "Too many words! Remove one first!";
                     return;
                 }
                 list.Add(lower);
