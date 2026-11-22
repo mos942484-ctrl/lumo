@@ -1,0 +1,35 @@
+# Unity
+[Ll]ibrary/
+[Tt]emp/
+[Oo]bj/
+[Bb]uild/
+[Bb]uilds/
+[Ll]ogs/
+[Uu]ser[Ss]ettings/
+MemoryCaptures/
+*.stackdump
+*.pidb
+*.booproj
+*.suo
+*.user
+*.userprefs
+*.csproj
+*.sln
+*.slnx
+.vs/
+.vscode/
+.idea/
+Assembly-CSharp*.csproj
+
+# Working & archived dirs
+/_downloads/
+/_tools/
+/_old_docs/
+
+# Python cache & Git bundles
+__pycache__/
+*.py[cod]
+*.bundle
+
+# Editor-tool config
+/.zcode/
