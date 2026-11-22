@@ -1,0 +1,7 @@
+/* The game's own typeface (OFL-Baloo2, Assets/Resources/Fonts/font_main.ttf) */
+@font-face {
+  font-family: 'Baloo 2';
+  src: url('font_main.ttf') format('truetype');
+  font-weight: 400 800;
+  font-style: normal;
+}

@@ -1,0 +1,1873 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Lumo and the Crystal of Knowledge — Visual Storyboard</title>
+<link rel="stylesheet" href="assets/fonts.css">
+<style>
+/* ============ PRINT SETUP ============ */
+@page { size: 1122px 794px; margin: 0; }
+html, body {
+  margin: 0; padding: 0; width: 1122px;
+  background: #0F243D;
+}
+body {
+  font-family: 'Baloo 2', 'Segoe UI', sans-serif;
+  color: #1C2B3A;
+}
+* { box-sizing: border-box; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+
+/* Browser preview auto-scale (print output unaffected) */
+@media screen {
+  html { height: auto; display: flex; justify-content: center; background: #0F243D; }
+  body { transform-origin: top center; scale: min(1, calc(100vw / 1122)); margin: 0 auto; }
+}
+
+/* ============ DESIGN TOKENS ============ */
+:root {
+  --navy: #1C2B3A;        /* text + chrome */
+  --navy-deep: #0F243D;   /* cover, mock scrims */
+  --navy-mid: #31465C;
+  --muted: #5D6B7A;
+  --gold: #C9962B;        /* borders, chips */
+  --gold-deep: #8F6A1F;   /* text-grade gold */
+  --gold-bright: #FFC53D; /* small accents only */
+  --cream: #FAF6EF;       /* page bg */
+  --paper: #FFFFFF;
+  --line: #E3DBCB;
+}
+
+/* ============ PAGE CHROME ============ */
+.page {
+  width: 1122px; height: 794px;
+  position: relative; overflow: hidden;
+  background: var(--cream);
+  page-break-after: always;
+  break-after: page;
+}
+.page:last-child { page-break-after: auto; break-after: auto; }
+
+.pfoot {
+  position: absolute; left: 40px; right: 40px; bottom: 16px;
+  display: flex; justify-content: space-between; align-items: center;
+  font-size: 9px; letter-spacing: 2px; color: #9AA6B2;
+  border-top: 0.5px solid var(--line); padding-top: 7px;
+  text-transform: uppercase;
+}
+.pfoot b { color: var(--gold-deep); font-weight: 600; }
+
+.phead {
+  position: absolute; left: 40px; right: 40px; top: 26px;
+  display: flex; align-items: baseline; gap: 14px;
+  border-bottom: 1px solid var(--line); padding-bottom: 10px;
+}
+.phead .kick {
+  font-size: 10px; letter-spacing: 3px; color: var(--gold-deep);
+  font-weight: 600; text-transform: uppercase; white-space: nowrap;
+}
+.phead h2 {
+  margin: 0; font-size: 26px; font-weight: 700; color: var(--navy);
+  letter-spacing: 0.4px;
+}
+.phead .sub { font-size: 11px; color: var(--muted); margin-left: auto; }
+
+/* ============ SCENE MOCK (16:9 composed panels) ============ */
+.mock {
+  position: relative; overflow: hidden;
+  border-radius: 10px; background: var(--navy-deep);
+  box-shadow: 0 3px 14px rgba(15,36,61,0.22);
+}
+.mock .bg { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+.mock .scrim { position: absolute; inset: 0; background: rgba(15,36,61,0.30); }
+.mock img.ch { position: absolute; filter: drop-shadow(0 4px 8px rgba(15,36,61,0.45)); }
+.mock .tag {
+  position: absolute; bottom: 8px; font-size: 9px; letter-spacing: 1px;
+  color: #FDF3D8; background: rgba(15,36,61,0.72); border: 0.5px solid rgba(255,197,61,0.55);
+  padding: 2px 8px; border-radius: 8px; font-weight: 600;
+}
+.mockcard {
+  position: absolute; left: 50%; transform: translateX(-50%);
+  background: rgba(253,248,235,0.96); border: 1.5px solid var(--gold);
+  border-radius: 10px; padding: 10px 14px 9px;
+  box-shadow: 0 4px 14px rgba(15,36,61,0.35);
+  text-align: center;
+}
+.mockcard .chip {
+  display: inline-block; font-size: 8.5px; font-weight: 700; letter-spacing: 1.6px;
+  color: #fff; padding: 2px 9px; border-radius: 9px; text-transform: uppercase;
+}
+.mockcard .t { font-size: 14px; font-weight: 700; color: var(--navy); margin: 5px 0 3px; }
+.mockcard .s { font-size: 10px; line-height: 1.42; color: var(--navy-mid); font-style: italic; }
+.mockcard .q {
+  margin-top: 6px; font-size: 9.5px; color: var(--gold-deep); font-weight: 600;
+  border-top: 0.5px dashed var(--gold); padding-top: 5px;
+}
+.mockribbon {
+  position: absolute; top: 10px; left: 10px;
+  font-size: 8.5px; letter-spacing: 1.5px; font-weight: 600; color: #FDF3D8;
+  background: rgba(15,36,61,0.72); padding: 3px 9px; border-radius: 8px;
+  border: 0.5px solid rgba(255,197,61,0.5); text-transform: uppercase;
+}
+
+/* Gold pill button (UI mockups) */
+.gpill {
+  display: inline-flex; align-items: center; justify-content: center;
+  background: linear-gradient(180deg,#FFD34D,#F5B31E);
+  color: #4A3208; font-weight: 700; border-radius: 999px;
+  border: 1px solid #B07E14; letter-spacing: 2px;
+  box-shadow: 0 2px 6px rgba(15,36,61,0.4);
+}
+.spill {
+  display: inline-flex; align-items: center; justify-content: center;
+  background: rgba(253,248,235,0.94); color: var(--navy); font-weight: 600;
+  border-radius: 999px; border: 1px solid rgba(201,150,43,0.8);
+}
+
+/* ============ ISLAND FRAME PAGES ============ */
+.isl-head {
+  position: absolute; left: 40px; right: 40px; top: 24px; height: 62px;
+  display: flex; align-items: center; gap: 14px;
+  border-bottom: 1px solid var(--line); padding-bottom: 8px;
+}
+.fnum {
+  min-width: 74px; height: 44px; border-radius: 9px;
+  background: var(--navy); color: #FDF3D8;
+  display: flex; flex-direction: column; align-items: center; justify-content: center;
+  font-size: 8px; letter-spacing: 1.6px; line-height: 1.25; text-transform: uppercase;
+}
+.fnum b { font-size: 17px; font-weight: 700; letter-spacing: 0.5px; color: var(--gold-bright); }
+.isl-head .tt { font-size: 21px; font-weight: 700; color: var(--navy); line-height: 1.15; }
+.isl-head .tt small { display: block; font-size: 10.5px; color: var(--muted); font-weight: 400; letter-spacing: 0.6px; }
+.isl-chips { margin-left: auto; display: flex; gap: 7px; align-items: center; }
+.isl-chip {
+  font-size: 9px; font-weight: 600; letter-spacing: 0.8px; color: var(--navy-mid);
+  background: #F3EDE0; border: 0.5px solid var(--line); border-radius: 8px;
+  padding: 4px 9px; white-space: nowrap;
+}
+.isl-chip i { display: inline-block; width: 8px; height: 8px; border-radius: 50%; margin-right: 5px; vertical-align: -1px; }
+
+.isl-cols {
+  position: absolute; left: 40px; right: 40px; top: 96px; bottom: 42px;
+  display: flex; gap: 18px;
+}
+.isl-left { width: 592px; flex: 0 0 592px; display: flex; flex-direction: column; gap: 12px; }
+.isl-right { flex: 1; display: flex; flex-direction: column; gap: 10px; min-width: 0; }
+
+.mock-l { width: 592px; height: 333px; flex: 0 0 auto; }
+.mock-l .host { width: 148px; left: 14px; bottom: 0; }
+.mock-l .guide { width: 108px; right: 12px; bottom: 0; }
+.mock-l .mockcard { width: 296px; top: 44px; }
+
+.rounds { background: var(--paper); border: 1px solid var(--line); border-radius: 10px; overflow: hidden; flex: 1; display: flex; flex-direction: column; }
+.rounds .rt-head {
+  display: flex; align-items: center; gap: 8px; padding: 8px 12px 6px;
+  border-bottom: 1px solid var(--line); background: #F7F1E4;
+}
+.rounds .rt-head .rt-t { font-size: 10px; font-weight: 700; letter-spacing: 1.6px; color: var(--gold-deep); text-transform: uppercase; }
+.rounds .rt-head .rt-n { font-size: 9px; color: var(--muted); margin-left: auto; }
+table.rt { width: 100%; border-collapse: collapse; table-layout: fixed; }
+table.rt td, table.rt th { padding: 4px 8px; font-size: 10px; line-height: 1.3; vertical-align: middle; }
+table.rt th {
+  text-align: left; font-size: 9px; letter-spacing: 1.2px; color: var(--muted);
+  text-transform: uppercase; border-bottom: 0.5px solid var(--line); font-weight: 600;
+}
+table.rt tr + tr td { border-top: 0.5px solid #F0E9DA; }
+td.rid { color: var(--gold-deep); font-weight: 700; font-size: 9px; letter-spacing: 0.4px; white-space: nowrap; }
+td.rmod { white-space: nowrap; }
+td.rmod span { font-size: 8.5px; font-weight: 700; letter-spacing: 0.5px; color: #fff; padding: 1.5px 6px; border-radius: 7px; text-transform: uppercase; }
+td.rprompt { color: var(--navy); }
+td.rprompt em { color: var(--muted); font-style: normal; }
+
+.notecard {
+  background: var(--paper); border: 1px solid var(--line); border-radius: 10px;
+  padding: 9px 12px 8px;
+}
+.notecard h4 {
+  margin: 0 0 5px; font-size: 9px; letter-spacing: 1.8px; color: var(--gold-deep);
+  font-weight: 700; text-transform: uppercase;
+}
+.notecard p { margin: 0; font-size: 10.5px; line-height: 1.45; color: var(--navy-mid); }
+.notecard p.q { font-style: italic; color: var(--navy); }
+.notecard ul { margin: 0; padding-left: 15px; }
+.notecard ul li { font-size: 10.5px; line-height: 1.42; color: var(--navy-mid); }
+.notecard ul li b { color: var(--navy); }
+.hostrow { display: flex; align-items: center; gap: 8px; }
+.hostrow img { width: 44px; height: 44px; object-fit: contain; }
+.hostrow .hn { font-size: 10.5px; font-weight: 700; color: var(--navy); line-height: 1.2; }
+.hostrow .hn small { display: block; font-size: 8.5px; color: var(--muted); font-weight: 400; }
+
+/* ============ UI FRAME BLOCKS (2 per page) ============ */
+.fb { position: absolute; left: 40px; right: 40px; height: 330px; }
+.fb .fbhead { display: flex; align-items: center; gap: 12px; margin-bottom: 9px; }
+.fb .fbhead .fnum { height: 38px; min-width: 66px; }
+.fb .fbhead .fnum b { font-size: 14px; }
+.fb .fbhead h3 { margin: 0; font-size: 16.5px; font-weight: 700; color: var(--navy); }
+.fb .fbhead h3 small { font-size: 10px; color: var(--muted); font-weight: 400; margin-left: 8px; letter-spacing: 0.5px; }
+.fb .fbhead .fbchips { margin-left: auto; display: flex; gap: 6px; }
+.fb-body { display: flex; gap: 16px; }
+.fb-mock { width: 590px; height: 290px; flex: 0 0 590px; }
+.fb-notes { flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 8px; }
+
+/* ============ COVER ============ */
+.cover { background: var(--navy-deep); }
+.cover .cbg { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; opacity: 0.85; }
+.cover .cscrim { position: absolute; inset: 0; background: linear-gradient(180deg, rgba(15,36,61,0.82) 0%, rgba(15,36,61,0.62) 46%, rgba(15,36,61,0.88) 100%); }
+.cover .ckick {
+  position: absolute; top: 54px; left: 64px;
+  font-size: 12px; letter-spacing: 5px; color: var(--gold-bright); font-weight: 600;
+  text-transform: uppercase;
+}
+.cover .ckick small { display: block; margin-top: 6px; font-size: 9.5px; letter-spacing: 3px; color: #B9C6D6; font-weight: 400; }
+.cover .ctitle { position: absolute; top: 128px; left: 64px; right: 64px; }
+.cover .ctitle h1 {
+  margin: 0; font-size: 104px; line-height: 0.96; font-weight: 700; color: var(--gold-bright);
+  letter-spacing: 6px;
+}
+.cover .ctitle .csub {
+  margin-top: 10px; font-size: 30px; color: #FDF6E3; font-weight: 400; letter-spacing: 1.5px;
+}
+.cover .crule { position: absolute; top: 356px; left: 66px; width: 210px; height: 3px; background: var(--gold); border-radius: 2px; }
+.cover .cpara {
+  position: absolute; top: 378px; left: 66px; width: 560px;
+  font-size: 13.5px; line-height: 1.6; color: #C9D5E3;
+}
+.cover .cstats { position: absolute; top: 500px; left: 66px; display: flex; gap: 34px; }
+.cover .cstat .n { font-size: 40px; font-weight: 700; color: var(--gold-bright); line-height: 1; }
+.cover .cstat .l { font-size: 9px; letter-spacing: 2.2px; color: #9FB1C4; text-transform: uppercase; margin-top: 5px; }
+.cover .castrow {
+  position: absolute; right: 30px; bottom: 64px; left: 30px;
+  display: flex; justify-content: center; align-items: flex-end; gap: 26px;
+}
+.cover .castrow img { filter: drop-shadow(0 10px 18px rgba(0,0,0,0.55)); }
+.cover .cfoot {
+  position: absolute; left: 66px; right: 66px; bottom: 26px;
+  display: flex; justify-content: space-between;
+  font-size: 9.5px; letter-spacing: 2.5px; color: #8DA0B5; text-transform: uppercase;
+}
+
+/* ============ PREMISE PAGE ============ */
+.prem-grid { position: absolute; left: 40px; right: 40px; top: 92px; bottom: 46px; display: flex; gap: 24px; }
+.prem-left { flex: 0 0 470px; display: flex; flex-direction: column; gap: 14px; }
+.prem-right { flex: 1; display: flex; flex-direction: column; }
+.prem-p { font-size: 12.5px; line-height: 1.68; color: var(--navy-mid); margin: 0; }
+.prem-p b { color: var(--navy); }
+.statrow { display: flex; gap: 12px; }
+.stat {
+  flex: 1; background: var(--paper); border: 1px solid var(--line); border-radius: 10px;
+  padding: 12px 10px 10px; text-align: center; border-top: 3px solid var(--gold);
+}
+.stat .n { font-size: 26px; font-weight: 700; color: var(--navy); line-height: 1; }
+.stat .l { font-size: 8.5px; letter-spacing: 1.4px; color: var(--muted); text-transform: uppercase; margin-top: 5px; line-height: 1.35; }
+.shardart { display: flex; align-items: center; gap: 14px; background: var(--navy-deep); border-radius: 12px; padding: 12px 16px; }
+.shardart img { width: 74px; height: 74px; object-fit: contain; }
+.shardart p { margin: 0; font-size: 10.5px; line-height: 1.5; color: #C9D5E3; font-style: italic; }
+.actcard {
+  display: flex; gap: 13px; align-items: center;
+  background: var(--paper); border: 1px solid var(--line); border-radius: 11px;
+  padding: 11px 14px; position: relative;
+}
+.actcard + .actcard { margin-top: 9px; }
+.actcard .an {
+  flex: 0 0 54px; height: 54px; border-radius: 10px; background: var(--navy); color: var(--gold-bright);
+  display: flex; align-items: center; justify-content: center; font-size: 19px; font-weight: 700;
+}
+.actcard .an.p { background: var(--gold); color: #4A3208; }
+.actcard .ab .at { font-size: 13px; font-weight: 700; color: var(--navy); }
+.actcard .ab .at small { font-size: 9px; color: var(--gold-deep); font-weight: 700; letter-spacing: 1px; margin-left: 8px; text-transform: uppercase; }
+.actcard .ab .ad { font-size: 10px; color: var(--muted); line-height: 1.4; margin-top: 2px; }
+.actarrow { text-align: center; color: var(--gold); font-size: 13px; line-height: 0.7; margin-top: -1px; margin-bottom: 8px; font-weight: 700; }
+
+/* ============ CAST PAGE ============ */
+.castgrid {
+  position: absolute; left: 40px; right: 40px; top: 92px; bottom: 46px;
+  display: grid; grid-template-columns: repeat(4, 1fr); grid-template-rows: 1fr 1fr; gap: 14px;
+}
+.castcard {
+  background: var(--paper); border: 1px solid var(--line); border-radius: 12px;
+  padding: 10px 13px 9px; display: flex; flex-direction: column; position: relative; overflow: hidden;
+}
+.castcard .cart { height: 138px; display: flex; align-items: flex-end; justify-content: center; }
+.castcard .cart img { height: 132px; filter: drop-shadow(0 4px 8px rgba(15,36,61,0.28)); }
+.castcard .cname { font-size: 13.5px; font-weight: 700; color: var(--navy); margin-top: 7px; }
+.castcard .crole { font-size: 8.5px; font-weight: 700; letter-spacing: 1.2px; color: var(--gold-deep); text-transform: uppercase; margin-top: 1px; }
+.castcard .cdesc { font-size: 9.5px; line-height: 1.4; color: var(--muted); margin-top: 4px; }
+.castcard .cfile {
+  position: absolute; top: 9px; left: 11px; font-size: 8px; color: #A6B0BB;
+  letter-spacing: 0.6px; font-family: 'Consolas', monospace;
+}
+
+/* ============ FLOW PAGE ============ */
+.flowwrap { position: absolute; left: 40px; right: 40px; top: 96px; bottom: 46px; background: var(--paper); border: 1px solid var(--line); border-radius: 12px; }
+.flowwrap svg { position: absolute; inset: 0; width: 100%; height: 100%; }
+.fnode {
+  position: absolute; width: 152px; height: 62px; border-radius: 10px;
+  background: #F2F6FA; border: 1.5px solid #9FB1C4;
+  display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center;
+  padding: 4px 8px;
+}
+.fnode .fn { font-size: 11.5px; font-weight: 700; color: var(--navy); line-height: 1.15; }
+.fnode .fd { font-size: 8px; color: var(--muted); letter-spacing: 0.4px; margin-top: 2px; line-height: 1.25; }
+.fnode.hub { background: #FBF3DC; border-color: var(--gold); }
+.fnode.hub .fn { color: var(--gold-deep); }
+.fnode.dark { background: var(--navy); border-color: var(--navy); }
+.fnode.dark .fn { color: var(--gold-bright); }
+.fnode.dark .fd { color: #9FB1C4; }
+.elabel { position: absolute; font-size: 8px; color: var(--gold-deep); font-weight: 600; background: rgba(250,246,239,0.9); padding: 0 3px; border-radius: 3px; white-space: nowrap; }
+
+/* ============ RESULTS PAGE ============ */
+
+/* ============ CATALOG PAGE ============ */
+.cat-wrap { position: absolute; left: 40px; right: 40px; top: 92px; bottom: 46px; display: flex; flex-direction: column; gap: 12px; }
+.cat-row { background: var(--paper); border: 1px solid var(--line); border-radius: 12px; padding: 10px 14px 12px; }
+.cat-row h4 { margin: 0 0 8px; font-size: 9.5px; letter-spacing: 2px; color: var(--gold-deep); font-weight: 700; text-transform: uppercase; }
+.cat-grid { display: flex; gap: 10px; }
+.cat-item { flex: 1; text-align: center; }
+.cat-item .cimg { height: 74px; border-radius: 7px; overflow: hidden; background: #EDE6D6; display: flex; align-items: center; justify-content: center; }
+.cat-item .cimg img.wide { width: 100%; height: 100%; object-fit: cover; }
+.cat-item .cimg img.sq { height: 66px; width: 66px; object-fit: contain; }
+.cat-item .cl { font-size: 8.5px; color: var(--muted); margin-top: 4px; font-family: 'Consolas', monospace; letter-spacing: 0.3px; }
+
+/* ============ MISC UI MOCK HELPERS ============ */
+.apples { display: flex; gap: 6px; align-items: flex-end; }
+.apples img { width: 30px; height: 30px; object-fit: contain; }
+.optpill {
+  display: inline-flex; align-items: center; justify-content: center;
+  width: 46px; height: 34px; border-radius: 9px; background: #FDF8E7;
+  border: 1.5px solid var(--gold); font-size: 14px; font-weight: 700; color: var(--navy);
+  box-shadow: 0 2px 5px rgba(15,36,61,0.3);
+}
+.optpill.correct { background: #E4F6E7; border-color: #2F7A3E; color: #14532D; }
+.medal {
+  width: 40px; height: 40px; border-radius: 50%; background: #FDF8E7;
+  border: 2px solid var(--gold); display: flex; align-items: center; justify-content: center;
+  position: relative; box-shadow: 0 2px 5px rgba(15,36,61,0.3);
+}
+.medal img { width: 24px; height: 24px; object-fit: contain; }
+.medal .mnum {
+  position: absolute; top: -6px; left: -6px; width: 15px; height: 15px; border-radius: 50%;
+  background: var(--navy); color: var(--gold-bright); font-size: 8px; font-weight: 700;
+  display: flex; align-items: center; justify-content: center; border: 1px solid var(--gold);
+}
+.medal.locked { opacity: 0.42; filter: grayscale(0.5); }
+.mlabel { font-size: 8.5px; color: #FDF3D8; text-align: center; margin-top: 4px; letter-spacing: 0.3px; }
+.dpad {
+  display: grid; grid-template-columns: repeat(3, 26px); grid-template-rows: repeat(3, 26px); gap: 3px;
+}
+.dpad span {
+  background: rgba(253,248,235,0.92); border: 1px solid var(--gold); border-radius: 6px;
+  display: flex; align-items: center; justify-content: center; font-size: 11px; color: var(--navy); font-weight: 700;
+}
+.tile5 { width: 26px; height: 26px; border-radius: 5px; background: rgba(253,248,235,0.9); border: 1px solid rgba(201,150,43,0.7); display: flex; align-items: center; justify-content: center; font-size: 10px; font-weight: 700; color: var(--navy); }
+.tile5.hero { background: #FBE9B7; border-color: var(--gold); }
+.tile5.chest { background: #FDF8E7; border-color: var(--gold-deep); }
+</style>
+</head>
+<body>
+
+<!-- ================= PAGE 1 · COVER ================= -->
+<div class="page cover">
+  <img class="cbg" src="assets/bg_final.jpg">
+  <div class="cscrim"></div>
+  <div class="ckick">Master Visual &amp; Narrative Storyboard
+    <small>WONDER ISLANDS · EDUCATIONAL ADVENTURE · UNITY 2D</small>
+  </div>
+  <div class="ctitle">
+    <h1>LUMO</h1>
+    <div class="csub">and the Crystal of Knowledge</div>
+  </div>
+  <div class="crule"></div>
+  <div class="cpara">
+    From the opening splash to the Grand Finale ceremony — every screen, every island,
+    every learning round staged frame by frame, composed with the game&rsquo;s own art.
+    A production companion to <b style="color:#FDF3D8">Docs/STORYBOARD.md</b>.
+  </div>
+  <div class="cstats">
+    <div class="cstat"><div class="n">23</div><div class="l">Storyboard Frames</div></div>
+    <div class="cstat"><div class="n">13</div><div class="l">Wonder Islands</div></div>
+    <div class="cstat"><div class="n">12</div><div class="l">Crystal Shards</div></div>
+    <div class="cstat"><div class="n">261</div><div class="l">Stars to Earn</div></div>
+    <div class="cstat"><div class="n">15</div><div class="l">Finale Rounds</div></div>
+  </div>
+  <div class="castrow">
+    <img src="assets/char_king.png" style="height:148px">
+    <img src="assets/char_lexi.png" style="height:148px">
+    <img src="assets/char_lumo.png" style="height:170px">
+    <img src="assets/char_hero_a.png" style="height:142px">
+    <img src="assets/char_hero_b.png" style="height:142px">
+    <img src="assets/char_shadow.png" style="height:158px">
+    <img src="assets/char_spark.png" style="height:132px">
+  </div>
+  <div class="cfoot">
+    <span>Lumo and the Crystal of Knowledge</span>
+    <span>Ages 5–12 · 1920×1080 UI · Flat-Toon Storybook</span>
+    <span>2026</span>
+  </div>
+</div>
+
+<!-- ================= PAGE 2 · PREMISE & THREE-ACT STRUCTURE ================= -->
+<div class="page">
+  <div class="phead">
+    <span class="kick">01 · Story</span>
+    <h2>Premise &amp; Three-Act Narrative Structure</h2>
+    <span class="sub">The crystal shatters · the hero sails · knowledge is restored</span>
+  </div>
+  <div class="prem-grid">
+    <div class="prem-left">
+      <p class="prem-p">
+        High atop the royal citadel of the <b>Wonder Islands</b>, the <b>Crystal of Knowledge</b> kept
+        numbers, words, music and discovery in harmony. When the mischievous <b>Shadow of Confusion</b>
+        shattered it into <b>12 glowing shards</b> and scattered them across the archipelago, numbers
+        tumbled out of order, letters flew off library pages, and bridges collapsed.
+      </p>
+      <p class="prem-p">
+        <b>King Arqam</b>, <b>Princess Lexi</b> and <b>Lumo the Owl</b> summon a young adventurer —
+        <b>Hero A</b> or <b>Hero B</b> — to sail from island to island, solve each island&rsquo;s
+        challenges, recover all 12 shards, and reforge the Crystal in the <b>Music Room Finale</b>.
+      </p>
+      <div class="statrow">
+        <div class="stat"><div class="n">6</div><div class="l">Rounds per island</div></div>
+        <div class="stat"><div class="n">3</div><div class="l">Age bands adapted</div></div>
+        <div class="stat"><div class="n">8</div><div class="l">Module types</div></div>
+        <div class="stat"><div class="n">78</div><div class="l">Story rounds total</div></div>
+      </div>
+      <div class="shardart">
+        <img src="assets/obj_shard.png">
+        <p>&ldquo;Each island ends with a Crystal Shard. Twelve shards forge the Crystal of Knowledge —
+           and every shard is earned by learning, never by luck.&rdquo;</p>
+      </div>
+    </div>
+    <div class="prem-right">
+      <div class="actcard">
+        <div class="an p">P</div>
+        <div class="ab">
+          <div class="at">Prologue — Tutorial <small>4 steps</small></div>
+          <div class="ad">King Arqam&rsquo;s call: tap answers, drag numbers, and learn the 3 Golden Rules of the Wonder Islands.</div>
+        </div>
+      </div>
+      <div class="actarrow">▼</div>
+      <div class="actcard">
+        <div class="an">I</div>
+        <div class="ab">
+          <div class="at">Foundation Islands <small>Levels 1–4</small></div>
+          <div class="ad">Math Mountain · Word Forest · Memory Garden · Learning Island — counting, sight words, matching, take-away.</div>
+        </div>
+      </div>
+      <div class="actarrow">▼</div>
+      <div class="actcard">
+        <div class="an">II</div>
+        <div class="ab">
+          <div class="at">Craft &amp; Discovery <small>Levels 5–8</small></div>
+          <div class="ad">Art Studio · Science Lab · Sky Kingdom · Ocean Reef — spelling, potions, number lines, adjectives.</div>
+        </div>
+      </div>
+      <div class="actarrow">▼</div>
+      <div class="actcard">
+        <div class="an">III</div>
+        <div class="ab">
+          <div class="at">Royal Missions <small>Levels 9–12</small></div>
+          <div class="ad">Puzzle Park · Space Station · Kindness Corner · Dino Valley — grid maps, two-step math, sentences, sorting.</div>
+        </div>
+      </div>
+      <div class="actarrow">▼</div>
+      <div class="actcard" style="border-color: var(--gold); background:#FBF3DC;">
+        <div class="an">F</div>
+        <div class="ab">
+          <div class="at">Climax — Music Room Finale <small>Level 13</small></div>
+          <div class="ad">A 15-task gauntlet against the Shadow of Confusion: 3 crystal chimes + 12 mastery tasks — then the Crystal Restoration Ceremony.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="pfoot"><span><b>LUMO</b> · Visual &amp; Narrative Storyboard</span><span>Page 2 / 23</span></div>
+</div>
+
+<!-- ================= PAGE 3 · CAST OF CHARACTERS ================= -->
+<div class="page">
+  <div class="phead">
+    <span class="kick">02 · Cast</span>
+    <h2>Cast of Characters &amp; Visual Profiles</h2>
+    <span class="sub">600×600 sprites · dark storybook ink outlines #281E18</span>
+  </div>
+  <div class="castgrid">
+    <div class="castcard">
+      <span class="cfile">char_lumo.png</span>
+      <div class="cart"><img src="assets/char_lumo.png"></div>
+      <div class="cname">Lumo the Owl</div>
+      <div class="crole">Primary Companion &amp; Guide</div>
+      <div class="cdesc">Golden-brown owl with big expressive eyes. Appears in a golden halo or beside speech bubbles — hints, encouragement, recaps.</div>
+    </div>
+    <div class="castcard">
+      <span class="cfile">char_king.png</span>
+      <div class="cart"><img src="assets/char_king.png"></div>
+      <div class="cname">King Arqam</div>
+      <div class="crole">Ruler of Number &amp; Logic Realms</div>
+      <div class="cdesc">Warm bearded monarch in crown and red-gold robe. Hosts the math, logic, navigation and workshop islands.</div>
+    </div>
+    <div class="castcard">
+      <span class="cfile">char_lexi.png</span>
+      <div class="cart"><img src="assets/char_lexi.png"></div>
+      <div class="cname">Princess Lexi</div>
+      <div class="crole">Host of Language, Science &amp; Kindness</div>
+      <div class="cdesc">Cheerful waving princess in royal gown. Guides reading, spelling, potion science, ocean words and kindness.</div>
+    </div>
+    <div class="castcard">
+      <span class="cfile">char_hero_a.png</span>
+      <div class="cart"><img src="assets/char_hero_a.png"></div>
+      <div class="cname">Hero A (Boy)</div>
+      <div class="crole">Playable Adventurer · Avatar 1</div>
+      <div class="cdesc">Young explorer in adventurous tunic. The player&rsquo;s token on the World Map, treasure grid and certificate.</div>
+    </div>
+    <div class="castcard">
+      <span class="cfile">char_hero_b.png</span>
+      <div class="cart"><img src="assets/char_hero_b.png"></div>
+      <div class="cname">Hero B (Girl)</div>
+      <div class="crole">Playable Adventurer · Avatar 2</div>
+      <div class="cdesc">Young explorer in adventurous outfit. Same token role — the child picks who sails the Wonder Islands today.</div>
+    </div>
+    <div class="castcard">
+      <span class="cfile">char_shadow.png</span>
+      <div class="cart"><img src="assets/char_shadow.png"></div>
+      <div class="cname">Shadow of Confusion</div>
+      <div class="crole">Kid-Friendly Antagonist · Storm Mage</div>
+      <div class="cdesc">Purple-cloaked storm mage who scattered the 12 shards. Never scary — challenges the hero to prove their knowledge.</div>
+    </div>
+    <div class="castcard">
+      <span class="cfile">char_spark.png</span>
+      <div class="cart"><img src="assets/char_spark.png"></div>
+      <div class="cname">Spark the Dragon</div>
+      <div class="crole">Kingdom Mascot</div>
+      <div class="cdesc">Friendly storybook dragon, reserved for cutscene moments and promotional illustration.</div>
+    </div>
+    <div class="castcard" style="background:#FBF3DC; border-color: var(--gold);">
+      <div class="cart" style="height:96px"><img src="assets/obj_crystal.png" style="height:96px"></div>
+      <div class="cname">The Crystal of Knowledge</div>
+      <div class="crole">The Heart of the Story</div>
+      <div class="cdesc">Shattered into 12 shards, one per island. Reforged at the Finale — 261 stars and 13 mastered skills light the ceremony.</div>
+    </div>
+  </div>
+  <div class="pfoot"><span><b>LUMO</b> · Visual &amp; Narrative Storyboard</span><span>Page 3 / 23</span></div>
+</div>
+
+<!-- ================= PAGE 4 · MASTER SCREEN FLOW ================= -->
+<div class="page">
+  <div class="phead">
+    <span class="kick">03 · Navigation</span>
+    <h2>Master Screen Flow &amp; Navigation Map</h2>
+    <span class="sub">Solid = forward route · Dashed = return route · Gold = map &amp; finale hubs</span>
+  </div>
+  <div class="flowwrap">
+    <svg viewBox="0 0 1042 640" preserveAspectRatio="none">
+      <defs>
+        <marker id="arw" markerWidth="7" markerHeight="7" refX="6" refY="3.5" orient="auto">
+          <path d="M0,0 L7,3.5 L0,7 Z" fill="#8F6A1F"/>
+        </marker>
+        <marker id="arwd" markerWidth="7" markerHeight="7" refX="6" refY="3.5" orient="auto">
+          <path d="M0,0 L7,3.5 L0,7 Z" fill="#9FB1C4"/>
+        </marker>
+      </defs>
+      <!-- Splash -> Main Menu -->
+      <path d="M192,266 H236" stroke="#8F6A1F" stroke-width="1.4" fill="none" marker-end="url(#arw)"/>
+      <!-- MainMenu -> CharacterSelect (up) -->
+      <path d="M330,235 C360,235 380,140 428,140" stroke="#8F6A1F" stroke-width="1.4" fill="none" marker-end="url(#arw)"/>
+      <!-- MainMenu -> Tutorial (right) -->
+      <path d="M330,266 H428" stroke="#8F6A1F" stroke-width="1.4" fill="none" marker-end="url(#arw)"/>
+      <!-- MainMenu -> ProgressReport (down) -->
+      <path d="M316,297 V436 H428" stroke="#8F6A1F" stroke-width="1.4" fill="none" marker-end="url(#arw)"/>
+      <!-- MainMenu -> SessionRecap (down-left) -->
+      <path d="M236,280 C170,280 150,320 148,436" stroke="#8F6A1F" stroke-width="1.4" fill="none" marker-end="url(#arw)"/>
+      <!-- CharacterSelect -> Tutorial -->
+      <path d="M504,171 V234" stroke="#8F6A1F" stroke-width="1.4" fill="none" marker-end="url(#arw)"/>
+      <!-- CharacterSelect -> WorldMap -->
+      <path d="M580,150 C640,150 660,200 686,234" stroke="#8F6A1F" stroke-width="1.4" fill="none" marker-end="url(#arw)"/>
+      <!-- Tutorial -> WorldMap -->
+      <path d="M580,266 H684" stroke="#8F6A1F" stroke-width="1.4" fill="none" marker-end="url(#arw)"/>
+      <!-- WorldMap -> LevelIntro -->
+      <path d="M762,240 C790,215 800,160 828,140" stroke="#8F6A1F" stroke-width="1.4" fill="none" marker-end="url(#arw)"/>
+      <!-- LevelIntro -> Gameplay -->
+      <path d="M904,171 V234" stroke="#8F6A1F" stroke-width="1.4" fill="none" marker-end="url(#arw)"/>
+      <!-- Gameplay -> LevelResult -->
+      <path d="M880,297 C860,340 800,380 700,436" stroke="#8F6A1F" stroke-width="1.4" fill="none" marker-end="url(#arw)"/>
+      <!-- Gameplay -> FinalResult -->
+      <path d="M928,297 V436" stroke="#8F6A1F" stroke-width="1.4" fill="none" marker-end="url(#arw)"/>
+      <!-- FinalResult -> ProgressReport -->
+      <path d="M828,467 H580" stroke="#8F6A1F" stroke-width="1.4" fill="none" marker-end="url(#arw)"/>
+      <!-- dashed returns -->
+      <path d="M828,266 C760,266 740,266 704,266" stroke="#9FB1C4" stroke-width="1.2" stroke-dasharray="4 3" fill="none" marker-end="url(#arwd)"/>
+      <path d="M624,467 C560,440 540,400 610,330 L660,300" stroke="#9FB1C4" stroke-width="1.2" stroke-dasharray="4 3" fill="none" marker-end="url(#arwd)"/>
+      <path d="M876,436 C876,380 830,330 780,310" stroke="#9FB1C4" stroke-width="1.2" stroke-dasharray="4 3" fill="none" marker-end="url(#arwd)"/>
+      <path d="M828,495 C700,560 420,560 320,300" stroke="#9FB1C4" stroke-width="1.2" stroke-dasharray="4 3" fill="none" marker-end="url(#arwd)"/>
+    </svg>
+    <!-- Row: entry -->
+    <div class="fnode dark" style="left:38px; top:235px;"><div class="fn">Splash Screen</div><div class="fd">App launch · 4.5s auto</div></div>
+    <div class="fnode" style="left:236px; top:235px;"><div class="fn">Main Menu</div><div class="fd">Play · Progress · Collection</div></div>
+    <div class="fnode" style="left:428px; top:109px;"><div class="fn">Character Select</div><div class="fd">Hero A / Hero B</div></div>
+    <div class="fnode" style="left:428px; top:235px;"><div class="fn">Tutorial</div><div class="fd">4 steps · skippable</div></div>
+    <div class="fnode hub" style="left:684px; top:235px;"><div class="fn">World Map</div><div class="fd">13 island medallions</div></div>
+    <div class="fnode" style="left:828px; top:109px;"><div class="fn">Level Intro</div><div class="fd">Story · quest · ILOs</div></div>
+    <div class="fnode" style="left:828px; top:235px;"><div class="fn">Gameplay</div><div class="fd">6 rounds · 15 in L13</div></div>
+    <div class="fnode" style="left:548px; top:436px;"><div class="fn">Level Result</div><div class="fd">Stars · XP · reflection</div></div>
+    <div class="fnode hub" style="left:828px; top:436px;"><div class="fn">Final Result</div><div class="fd">Certificate · trophies</div></div>
+    <div class="fnode" style="left:428px; top:436px;"><div class="fn">Progress Report</div><div class="fd">Skills · stars · words</div></div>
+    <div class="fnode" style="left:38px; top:436px;"><div class="fn">Session Recap</div><div class="fd">Today&rsquo;s adventure</div></div>
+    <!-- edge labels -->
+    <span class="elabel" style="left:206px; top:250px;">tap</span>
+    <span class="elabel" style="left:348px; top:168px;">play</span>
+    <span class="elabel" style="left:340px; top:252px;">first run</span>
+    <span class="elabel" style="left:330px; top:352px;">my progress</span>
+    <span class="elabel" style="left:150px; top:340px;">today&rsquo;s adventure</span>
+    <span class="elabel" style="left:590px; top:255px;">ready</span>
+    <span class="elabel" style="left:640px; top:165px;">skip / done</span>
+    <span class="elabel" style="left:722px; top:252px;">tap island</span>
+    <span class="elabel" style="left:866px; top:196px;">let&rsquo;s start</span>
+    <span class="elabel" style="left:770px; top:352px;">islands 1–12</span>
+    <span class="elabel" style="left:894px; top:352px;">island 13</span>
+    <span class="elabel" style="left:690px; top:452px;">view progress</span>
+    <span class="elabel" style="left:748px; top:250px;">home</span>
+    <span class="elabel" style="left:560px; top:404px;">continue / again</span>
+  </div>
+  <div class="pfoot"><span><b>LUMO</b> · Visual &amp; Narrative Storyboard</span><span>Page 4 / 23</span></div>
+</div>
+
+<!-- ================= PAGE 5 · FRAMES 01–02 ================= -->
+<div class="page">
+  <div class="phead">
+    <span class="kick">04 · Core UI</span>
+    <h2>Opening Frames</h2>
+    <span class="sub">Frames 01–02 · Splash &amp; Main Menu</span>
+  </div>
+
+  <!-- FRAME 01 -->
+  <div class="fb" style="top:92px;">
+    <div class="fbhead">
+      <div class="fnum"><span>Frame</span><b>01</b></div>
+      <h3>Splash Screen <small>SplashScreen.cs · 0.0–4.5s, skippable</small></h3>
+      <div class="fbchips"><span class="isl-chip">bg_menu.png</span><span class="isl-chip">music_menu.wav</span></div>
+    </div>
+    <div class="fb-body">
+      <div class="mock fb-mock">
+        <img class="bg" src="assets/bg_menu.jpg"><div class="scrim" style="background:rgba(15,36,61,0.26)"></div>
+        <div style="position:absolute; top:26px; left:0; right:0; text-align:center;">
+          <div style="font-size:44px; font-weight:700; letter-spacing:10px; color:#FFC53D; text-shadow:0 3px 10px rgba(0,0,0,0.5);">LUMO</div>
+          <div style="font-size:14px; color:#FDF6E3; letter-spacing:2px; margin-top:2px;">and the Crystal of Knowledge</div>
+          <div style="width:120px; height:2px; background:#C9962B; margin:10px auto 0;"></div>
+        </div>
+        <img class="ch" src="assets/char_lumo.png" style="width:120px; left:50%; margin-left:-60px; top:150px;">
+        <div style="position:absolute; left:50%; margin-left:-86px; top:138px; width:172px; height:172px; border-radius:50%; background:radial-gradient(circle, rgba(255,197,61,0.35) 0%, rgba(255,197,61,0) 68%);"></div>
+        <div class="spill" style="position:absolute; bottom:16px; left:50%; transform:translateX(-50%); font-size:11px; padding:6px 20px; letter-spacing:1.5px; opacity:0.9;">Tap anywhere to begin…</div>
+      </div>
+      <div class="fb-notes">
+        <div class="notecard"><h4>Staging</h4>
+          <p>Gold 156pt title over a 26% deep-navy scrim on <b>bg_menu</b>. Lumo bobs gently inside a soft-gold halo — <b>8px · sin(2.2t)</b>.</p></div>
+        <div class="notecard"><h4>Motion &amp; Audio</h4>
+          <p>Elements fade in over 0.65s; tap-to-skip always live. <b>Calm Mode:</b> full opacity at once, zero motion. Music: <b>music_menu.wav</b> loop.</p></div>
+        <div class="notecard"><h4>Exit</h4>
+          <p>Any tap or 4.5s timer → <b>Main Menu</b>. Lumo stays on-screen in the menu (continuity).</p></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- FRAME 02 -->
+  <div class="fb" style="top:436px;">
+    <div class="fbhead">
+      <div class="fnum"><span>Frame</span><b>02</b></div>
+      <h3>Main Menu <small>MainMenuScreen.cs</small></h3>
+      <div class="fbchips"><span class="isl-chip">bg_menu.png · 24% scrim</span><span class="isl-chip">sfx_click.ogg</span></div>
+    </div>
+    <div class="fb-body">
+      <div class="mock fb-mock">
+        <img class="bg" src="assets/bg_menu.jpg"><div class="scrim" style="background:rgba(15,36,61,0.24)"></div>
+        <div style="position:absolute; top:14px; left:0; right:0; text-align:center;">
+          <span style="font-size:22px; font-weight:700; letter-spacing:8px; color:#FFC53D;">L U M O</span>
+          <div style="font-size:10px; color:#FDF6E3; letter-spacing:2px;">and the Crystal of Knowledge</div>
+        </div>
+        <img class="ch" src="assets/char_lumo.png" style="width:96px; left:26px; top:96px;">
+        <div class="tag" style="left:30px; bottom:52px;">Lumo · Guide</div>
+        <div style="position:absolute; left:22px; bottom:64px; width:170px; background:rgba(253,248,235,0.94); border:1px solid #C9962B; border-radius:9px; padding:6px 9px; font-size:9.5px; color:#1C2B3A; font-style:italic;">&ldquo;Tap Play to sail the Wonder Islands!&rdquo;</div>
+        <div style="position:absolute; left:238px; top:78px; right:30px; display:flex; flex-direction:column; gap:9px; align-items:flex-start;">
+          <span class="gpill" style="font-size:16px; padding:9px 56px;">▶&nbsp;&nbsp;PLAY</span>
+          <div style="display:flex; gap:8px;"><span class="spill" style="font-size:9px; padding:4px 12px;">How to Play</span><span class="spill" style="font-size:9px; padding:4px 12px;">My Collection</span></div>
+          <div style="display:flex; gap:8px;"><span class="spill" style="font-size:9px; padding:4px 12px;">My Progress</span><span class="spill" style="font-size:9px; padding:4px 12px;">Change Hero</span></div>
+          <div style="display:flex; gap:8px;"><span class="spill" style="font-size:9px; padding:4px 12px;">Today&rsquo;s Adventure</span></div>
+          <div style="display:flex; gap:8px;"><span class="spill" style="font-size:9px; padding:4px 12px;">Parents</span><span class="spill" style="font-size:9px; padding:4px 12px;">Settings</span></div>
+        </div>
+        <img class="ch" src="assets/obj_star.png" style="width:20px; right:120px; top:64px; opacity:0.9;">
+        <img class="ch" src="assets/obj_shard.png" style="width:22px; right:70px; top:88px;">
+      </div>
+      <div class="fb-notes">
+        <div class="notecard"><h4>Layout</h4>
+          <p>Lumo + speech card left; gold <b>PLAY</b> pill and secondary pills right. Status floats: stars &amp; shard counters.</p></div>
+        <div class="notecard"><h4>Overlays from here</h4>
+          <p><b>How to Play</b> — shards &amp; islands explainer · <b>My Collection</b> — N/261 stars, N/12 shards, badges, words · <b>Parents</b> — 4-digit PIN gate → tips, timers, CSV · <b>Settings</b> — music / SFX / voice toggles.</p></div>
+        <div class="notecard"><h4>Routing</h4>
+          <p>PLAY → Character Select (first run) → Tutorial, or straight to <b>World Map</b> once the tutorial is done.</p></div>
+      </div>
+    </div>
+  </div>
+  <div class="pfoot"><span><b>LUMO</b> · Visual &amp; Narrative Storyboard</span><span>Page 5 / 23</span></div>
+</div>
+
+<!-- ================= PAGE 6 · FRAMES 03–04 ================= -->
+<div class="page">
+  <div class="phead">
+    <span class="kick">04 · Core UI</span>
+    <h2>Choose a Hero &amp; Meet the Kingdom</h2>
+    <span class="sub">Frames 03–04 · Character Select &amp; Tutorial Step 1</span>
+  </div>
+
+  <!-- FRAME 03 -->
+  <div class="fb" style="top:92px;">
+    <div class="fbhead">
+      <div class="fnum"><span>Frame</span><b>03</b></div>
+      <h3>Character Selection <small>CharacterSelectScreen.cs</small></h3>
+      <div class="fbchips"><span class="isl-chip">bg_kingdom.png · 26% scrim</span></div>
+    </div>
+    <div class="fb-body">
+      <div class="mock fb-mock">
+        <img class="bg" src="assets/bg_kingdom.jpg"><div class="scrim" style="background:rgba(15,36,61,0.26)"></div>
+        <div style="position:absolute; top:14px; left:50%; transform:translateX(-50%); background:rgba(15,36,61,0.85); border:1px solid #C9962B; border-radius:10px; padding:6px 26px; font-size:15px; color:#FFC53D; font-weight:700; letter-spacing:1px;">Who will you be today?</div>
+        <span class="spill" style="position:absolute; top:18px; left:16px; font-size:9px; padding:3px 12px;">← Back</span>
+        <div style="position:absolute; left:96px; top:66px; width:190px; height:196px; background:rgba(253,248,235,0.95); border:2.5px solid #FFC53D; border-radius:12px; text-align:center; box-shadow:0 4px 12px rgba(0,0,0,0.35);">
+          <div style="position:absolute; top:-9px; right:10px; background:#FFC53D; color:#4A3208; font-size:8px; font-weight:700; padding:2px 8px; border-radius:8px; letter-spacing:1px;">SELECTED</div>
+          <img src="assets/char_hero_a.png" style="width:112px; margin-top:10px;">
+          <div style="font-size:12px; font-weight:700; color:#1C2B3A;">Hero A</div>
+          <span class="gpill" style="font-size:9px; padding:3px 14px; margin-top:2px;">Choose me!</span>
+        </div>
+        <div style="position:absolute; right:96px; top:72px; width:190px; height:196px; background:rgba(253,248,235,0.88); border:2px solid rgba(201,150,43,0.5); border-radius:12px; text-align:center;">
+          <img src="assets/char_hero_b.png" style="width:112px; margin-top:12px;">
+          <div style="font-size:12px; font-weight:700; color:#1C2B3A;">Hero B</div>
+          <span class="spill" style="font-size:9px; padding:3px 14px; margin-top:2px; border-style:dashed;">Choose me!</span>
+        </div>
+        <img class="ch" src="assets/char_lumo.png" style="width:64px; left:16px; bottom:0;">
+      </div>
+      <div class="fb-notes">
+        <div class="notecard"><h4>Action</h4>
+          <p>&ldquo;Choose me!&rdquo; saves <b>avatar 1 / 2</b>, plays a 0.20s celebratory card bounce and a toast — <i>&ldquo;You chose Hero A/B!&rdquo;</i></p></div>
+        <div class="notecard"><h4>Routing</h4>
+          <p>First run → <b>Tutorial</b>. After the tutorial → straight to the <b>World Map</b>. Back pill returns to Main Menu.</p></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- FRAME 04 -->
+  <div class="fb" style="top:436px;">
+    <div class="fbhead">
+      <div class="fnum"><span>Frame</span><b>04</b></div>
+      <h3>Prologue — Step 1 of 4 <small>TutorialScreen.cs · &ldquo;Welcome to the Kingdom!&rdquo;</small></h3>
+      <div class="fbchips"><span class="isl-chip">bg_village.png</span><span class="isl-chip">vo_story_intro</span></div>
+    </div>
+    <div class="fb-body">
+      <div class="mock fb-mock">
+        <img class="bg" src="assets/bg_village.jpg"><div class="scrim" style="background:rgba(15,36,61,0.26)"></div>
+        <div style="position:absolute; top:10px; left:0; right:0; text-align:center; font-size:9px; color:#FDF3D8; letter-spacing:1.5px;">STEP 1 OF 4 &nbsp;·&nbsp; ●○○○ &nbsp;&nbsp;<span style="opacity:0.8;">[ Skip ]</span></div>
+        <img class="ch" src="assets/char_king.png" style="width:118px; left:18px; top:66px;">
+        <img class="ch" src="assets/char_shadow.png" style="width:106px; right:20px; top:78px;">
+        <img class="ch" src="assets/obj_shard.png" style="width:46px; right:120px; top:56px;">
+        <div style="position:absolute; left:170px; top:70px; width:220px; background:rgba(253,248,235,0.95); border:1.5px solid #C9962B; border-radius:11px; padding:9px 12px; text-align:center;">
+          <div style="font-size:11.5px; font-weight:700; color:#1C2B3A;">Welcome to the Kingdom!</div>
+          <div style="font-size:9px; color:#31465C; font-style:italic; line-height:1.4; margin-top:4px;">&ldquo;Our magic crystal broke into twelve pieces. Help us! Play the games, get the stars, and save our kingdom!&rdquo;</div>
+        </div>
+        <span class="gpill" style="position:absolute; bottom:14px; left:50%; transform:translateX(-50%); font-size:11px; padding:6px 26px;">▶&nbsp; Let&rsquo;s Start!</span>
+        <img class="ch" src="assets/char_lumo.png" style="width:84px; left:14px; bottom:0;">
+        <div style="position:absolute; left:100px; bottom:26px; width:280px; height:22px; background:rgba(253,248,235,0.9); border-radius:11px; border:1px solid rgba(201,150,43,0.6); font-size:8.5px; color:#31465C; display:flex; align-items:center; padding:0 10px;">Lumo: &ldquo;Hello!&rdquo;</div>
+      </div>
+      <div class="fb-notes">
+        <div class="notecard"><h4>Staging</h4>
+          <p><b>Left:</b> King Arqam (260×310) · <b>Center:</b> parchment story card (1080×440) · <b>Right:</b> the Shadow with a floating shard. Progress ribbon: 4 pips + &ldquo;Step X of 4&rdquo;.</p></div>
+        <div class="notecard"><h4>Voice-Over</h4>
+          <p><b>vo_story_intro</b> — the king&rsquo;s call to adventure. Guide bar: Lumo (220×220) beside a 1260×84 parchment pill at bottom.</p></div>
+      </div>
+    </div>
+  </div>
+  <div class="pfoot"><span><b>LUMO</b> · Visual &amp; Narrative Storyboard</span><span>Page 6 / 23</span></div>
+</div>
+
+<!-- ================= PAGE 7 · FRAMES 05–06 ================= -->
+<div class="page">
+  <div class="phead">
+    <span class="kick">04 · Core UI</span>
+    <h2>Tutorial Interaction Drills</h2>
+    <span class="sub">Frames 05–06 · Tap the answer · Tap or drag</span>
+  </div>
+
+  <!-- FRAME 05 -->
+  <div class="fb" style="top:92px;">
+    <div class="fbhead">
+      <div class="fnum"><span>Frame</span><b>05</b></div>
+      <h3>Step 2 of 4 — Tap the Answer <small>TutorialScreen.cs</small></h3>
+      <div class="fbchips"><span class="isl-chip">bg_village.png</span><span class="isl-chip">sfx_correct</span></div>
+    </div>
+    <div class="fb-body">
+      <div class="mock fb-mock">
+        <img class="bg" src="assets/bg_village.jpg"><div class="scrim" style="background:rgba(15,36,61,0.26)"></div>
+        <div style="position:absolute; top:10px; left:0; right:0; text-align:center; font-size:9px; color:#FDF3D8; letter-spacing:1.5px;">STEP 2 OF 4 &nbsp;·&nbsp; ●●○○ &nbsp;&nbsp;<span style="opacity:0.8;">[ Skip ]</span></div>
+        <div style="position:absolute; top:64px; left:0; right:0; text-align:center; font-size:14px; font-weight:700; color:#FDF6E3; text-shadow:0 2px 6px rgba(0,0,0,0.5);">2 apples + 3 apples = ?</div>
+        <div style="position:absolute; top:100px; left:0; right:0; display:flex; justify-content:center; gap:36px;">
+          <div class="apples" style="padding:6px; background:rgba(253,248,235,0.14); border-radius:9px;"><img src="assets/obj_apple.png"><img src="assets/obj_apple.png"></div>
+          <div style="color:#FFC53D; font-size:20px; font-weight:700; align-self:center;">+</div>
+          <div class="apples" style="padding:6px; background:rgba(253,248,235,0.14); border-radius:9px;"><img src="assets/obj_apple.png"><img src="assets/obj_apple.png"><img src="assets/obj_apple.png"></div>
+        </div>
+        <div style="position:absolute; bottom:34px; left:0; right:0; display:flex; justify-content:center; gap:16px;">
+          <span class="optpill">4</span><span class="optpill correct">5</span><span class="optpill">6</span>
+        </div>
+        <img class="ch" src="assets/char_lumo.png" style="width:78px; left:14px; bottom:0;">
+        <div style="position:absolute; left:96px; bottom:78px; width:300px; height:20px; background:rgba(253,248,235,0.9); border-radius:10px; border:1px solid rgba(201,150,43,0.6); font-size:8.5px; color:#31465C; display:flex; align-items:center; padding:0 10px;">Lumo: &ldquo;Count the apples with me — tap the right number!&rdquo;</div>
+      </div>
+      <div class="fb-notes">
+        <div class="notecard"><h4>Interaction</h4>
+          <p>Tap <b>4</b> or <b>6</b> → gentle retry toast, no penalty. Tap <b>5</b> → <b>sfx_correct</b> and advance to Step 3.</p></div>
+        <div class="notecard"><h4>Pedagogy</h4>
+          <p>First drill teaches the core verb of the whole game: <b>tap the answer</b>. Visual apples mirror the prompt so counting stays concrete.</p></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- FRAME 06 -->
+  <div class="fb" style="top:436px;">
+    <div class="fbhead">
+      <div class="fnum"><span>Frame</span><b>06</b></div>
+      <h3>Step 3 of 4 — Tap or Drag <small>TutorialScreen.cs</small></h3>
+      <div class="fbchips"><span class="isl-chip">bg_village.png</span><span class="isl-chip">ui_slot.png · sfx_collect</span></div>
+    </div>
+    <div class="fb-body">
+      <div class="mock fb-mock">
+        <img class="bg" src="assets/bg_village.jpg"><div class="scrim" style="background:rgba(15,36,61,0.26)"></div>
+        <div style="position:absolute; top:10px; left:0; right:0; text-align:center; font-size:9px; color:#FDF3D8; letter-spacing:1.5px;">STEP 3 OF 4 &nbsp;·&nbsp; ●●●○ &nbsp;&nbsp;<span style="opacity:0.8;">[ Skip ]</span></div>
+        <div style="position:absolute; top:62px; left:0; right:0; text-align:center; font-size:14px; font-weight:700; color:#FDF6E3; text-shadow:0 2px 6px rgba(0,0,0,0.5);">2 apples + 3 apples = ?</div>
+        <div style="position:absolute; top:96px; left:0; right:0; display:flex; justify-content:center; gap:26px; align-items:center;">
+          <div style="width:64px; height:64px; border:2.5px dashed #FFC53D; border-radius:12px; background:rgba(255,197,61,0.14); display:flex; align-items:center; justify-content:center; font-size:24px; font-weight:700; color:#FFC53D;">5</div>
+          <div style="color:#FDF3D8; font-size:16px;">⟵ drag / tap</div>
+          <span class="gpill" style="width:56px; height:56px; border-radius:12px; font-size:22px;">5</span>
+        </div>
+        <div style="position:absolute; bottom:30px; left:0; right:0; display:flex; justify-content:center;">
+          <span style="background:#D9F2DC; border:1.5px solid #3E9E52; color:#1F5C31; font-size:10px; font-weight:700; padding:4px 16px; border-radius:10px;">✓ Slot filled — number pops!</span>
+        </div>
+        <img class="ch" src="assets/char_lumo.png" style="width:78px; left:14px; bottom:0;">
+        <div style="position:absolute; left:96px; bottom:70px; width:320px; height:20px; background:rgba(253,248,235,0.9); border-radius:10px; border:1px solid rgba(201,150,43,0.6); font-size:8.5px; color:#31465C; display:flex; align-items:center; padding:0 10px;">Lumo: &ldquo;Tap or drag the number 5 into the highlighted box!&rdquo;</div>
+      </div>
+      <div class="fb-notes">
+        <div class="notecard"><h4>Interaction</h4>
+          <p>Drop or tap <b>5</b>: the slot turns green, <b>sfx_collect</b> plays and the number scales with a pop before advancing.</p></div>
+        <div class="notecard"><h4>Pedagogy</h4>
+          <p>Introduces <b>drag-and-drop</b> — the second core verb — used later by spelling tiles, sentence words and workshop sorting.</p></div>
+      </div>
+    </div>
+  </div>
+  <div class="pfoot"><span><b>LUMO</b> · Visual &amp; Narrative Storyboard</span><span>Page 7 / 23</span></div>
+</div>
+
+<!-- ================= PAGE 8 · FRAMES 07–08 ================= -->
+<div class="page">
+  <div class="phead">
+    <span class="kick">04 · Core UI</span>
+    <h2>Golden Rules &amp; the World Map</h2>
+    <span class="sub">Frames 07–08 · Tutorial Step 4 &amp; Wonder Islands map</span>
+  </div>
+
+  <!-- FRAME 07 -->
+  <div class="fb" style="top:92px;">
+    <div class="fbhead">
+      <div class="fnum"><span>Frame</span><b>07</b></div>
+      <h3>Step 4 of 4 — Explore at Your Own Pace <small>TutorialScreen.cs</small></h3>
+      <div class="fbchips"><span class="isl-chip">bg_village.png</span></div>
+    </div>
+    <div class="fb-body">
+      <div class="mock fb-mock">
+        <img class="bg" src="assets/bg_village.jpg"><div class="scrim" style="background:rgba(15,36,61,0.26)"></div>
+        <div style="position:absolute; top:10px; left:0; right:0; text-align:center; font-size:9px; color:#FDF3D8; letter-spacing:1.5px;">STEP 4 OF 4 &nbsp;·&nbsp; ●●●●</div>
+        <div style="position:absolute; left:130px; top:56px; width:330px; background:rgba(253,248,235,0.95); border:1.5px solid #C9962B; border-radius:12px; padding:12px 16px;">
+          <div style="font-size:12px; font-weight:700; color:#8F6A1F; letter-spacing:1.5px; text-align:center; margin-bottom:7px;">THE 3 GOLDEN RULES OF WONDER ISLANDS</div>
+          <div style="font-size:10px; color:#1C2B3A; line-height:1.75;">
+            <b>1.</b>&nbsp; Sail freely &amp; earn stars<br>
+            <b>2.</b>&nbsp; Tap <b>Hint</b> anytime for Lumo&rsquo;s help<br>
+            <b>3.</b>&nbsp; Mistakes are part of learning — try again!
+          </div>
+        </div>
+        <span class="gpill" style="position:absolute; bottom:14px; left:50%; transform:translateX(-50%); font-size:11px; padding:6px 26px;">I&rsquo;m ready!</span>
+        <img class="ch" src="assets/char_lumo.png" style="width:84px; left:14px; bottom:0;">
+        <div style="position:absolute; left:100px; bottom:60px; width:300px; height:20px; background:rgba(253,248,235,0.9); border-radius:10px; border:1px solid rgba(201,150,43,0.6); font-size:8.5px; color:#31465C; display:flex; align-items:center; padding:0 10px;">Lumo: &ldquo;You are ready for the islands!&rdquo;</div>
+      </div>
+      <div class="fb-notes">
+        <div class="notecard"><h4>Action</h4>
+          <p><b>&ldquo;I&rsquo;m ready!&rdquo;</b> sets <b>tutorialDone = true</b> and opens the World Map. The Skip pill has been available at every step.</p></div>
+        <div class="notecard"><h4>Design intent</h4>
+          <p>The Golden Rules set expectations for <b>Free Sail</b> (non-linear choice), the always-available <b>Hint</b> button, and a growth-mindset retry loop.</p></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- FRAME 08 -->
+  <div class="fb" style="top:436px;">
+    <div class="fbhead">
+      <div class="fnum"><span>Frame</span><b>08</b></div>
+      <h3>Wonder Islands World Map <small>WorldMapScreen.cs</small></h3>
+      <div class="fbchips"><span class="isl-chip">bg_kingdom.png · 22% scrim</span><span class="isl-chip">SailAndOpen · 0.38s</span></div>
+    </div>
+    <div class="fb-body">
+      <div class="mock fb-mock">
+        <img class="bg" src="assets/bg_kingdom.jpg"><div class="scrim" style="background:rgba(15,36,61,0.22)"></div>
+        <div style="position:absolute; top:8px; left:12px; right:12px; display:flex; justify-content:space-between; align-items:center;">
+          <div style="display:flex; gap:6px;"><span class="spill" style="font-size:8px; padding:2px 9px;">⌂ Home</span><span class="spill" style="font-size:8px; padding:2px 9px;">Free Sail</span></div>
+          <div style="font-size:14px; font-weight:700; color:#FFC53D; letter-spacing:2px;">WONDER ISLANDS</div>
+          <span class="spill" style="font-size:8px; padding:2px 9px;">★ 132/261 · ◆ 5/12</span>
+        </div>
+        <!-- row 1 -->
+        <div style="position:absolute; top:62px; left:26px; right:26px; border-top:1.5px dashed rgba(255,197,61,0.5);"></div>
+        <div style="position:absolute; top:44px; left:26px; right:26px; display:flex; justify-content:space-between;">
+          <div style="text-align:center;"><div class="medal"><img src="assets/obj_apple.png"><span class="mnum">1</span></div><div class="mlabel">Math Mountain</div></div>
+          <div style="text-align:center;"><div class="medal"><img src="assets/obj_cat.png"><span class="mnum">2</span></div><div class="mlabel">Word Forest</div></div>
+          <div style="text-align:center;"><div class="medal"><img src="assets/obj_star.png"><span class="mnum">3</span></div><div class="mlabel">Memory Garden</div></div>
+          <div style="text-align:center;"><div class="medal"><img src="assets/obj_key.png"><span class="mnum">4</span></div><div class="mlabel">Learning Isl.</div></div>
+          <div style="text-align:center;"><div class="medal"><img src="assets/obj_sun.png"><span class="mnum">5</span></div><div class="mlabel">Art Studio</div></div>
+        </div>
+        <!-- row 2 -->
+        <div style="position:absolute; top:146px; left:86px; right:86px; border-top:1.5px dashed rgba(255,197,61,0.5);"></div>
+        <div style="position:absolute; top:128px; left:86px; right:86px; display:flex; justify-content:space-between;">
+          <div style="text-align:center;"><div class="medal"><img src="assets/obj_cauldron.png"><span class="mnum">6</span></div><div class="mlabel">Science Lab</div></div>
+          <div style="text-align:center;"><div class="medal"><img src="assets/obj_bird.png"><span class="mnum">7</span></div><div class="mlabel">Sky Kingdom</div></div>
+          <div style="text-align:center;"><div class="medal"><img src="assets/obj_fish.png"><span class="mnum">8</span></div><div class="mlabel">Ocean Reef</div></div>
+          <div style="text-align:center;"><div class="medal"><img src="assets/obj_chest.png"><span class="mnum">9</span></div><div class="mlabel">Puzzle Park</div></div>
+        </div>
+        <!-- row 3 -->
+        <div style="position:absolute; top:230px; left:56px; right:56px; border-top:1.5px dashed rgba(255,197,61,0.5);"></div>
+        <div style="position:absolute; top:212px; left:56px; right:56px; display:flex; justify-content:space-between;">
+          <div style="text-align:center;"><div class="medal"><img src="assets/obj_gem.png"><span class="mnum">10</span></div><div class="mlabel">Space Station</div></div>
+          <div style="text-align:center;"><div class="medal"><img src="assets/obj_house.png"><span class="mnum">11</span></div><div class="mlabel">Kindness Cnr.</div></div>
+          <div style="text-align:center;"><div class="medal"><img src="assets/obj_tree.png"><span class="mnum">12</span></div><div class="mlabel">Dino Valley</div></div>
+          <div style="text-align:center;"><div class="medal" style="border-color:#FFC53D; box-shadow:0 0 12px rgba(255,197,61,0.8);"><img src="assets/obj_crystal.png"><span class="mnum">13</span></div><div class="mlabel">Music Room</div></div>
+        </div>
+        <img class="ch" src="assets/char_hero_a.png" style="width:42px; left:34px; top:180px;">
+        <div style="position:absolute; bottom:8px; left:12px; right:12px; display:flex; justify-content:space-between; align-items:center;">
+          <span class="spill" style="font-size:8px; padding:2px 9px;">Hero · ▷</span>
+          <span style="font-size:9px; color:#FDF3D8; letter-spacing:1px; background:rgba(15,36,61,0.6); padding:3px 14px; border-radius:9px;">Tap any island to sail there!</span>
+          <div style="display:flex; gap:6px;"><span class="spill" style="font-size:8px; padding:2px 9px;">Parents</span><span class="spill" style="font-size:8px; padding:2px 9px;">⚙</span></div>
+        </div>
+      </div>
+      <div class="fb-notes">
+        <div class="notecard"><h4>HUD</h4>
+          <p><b>Left:</b> Home + Free Sail / Linear toggle · <b>Center:</b> title · <b>Right:</b> <i>Stars X/261 · Shards Y/12 · Ages 8–10</i>.</p></div>
+        <div class="notecard"><h4>Action</h4>
+          <p>Tapping an unlocked island sails the hero token along the path (<b>SailAndOpen</b>, 0.38s) into the <b>Level Intro</b>. Locked medallions show the lock glyph; island 13 glows gold.</p></div>
+      </div>
+    </div>
+  </div>
+  <div class="pfoot"><span><b>LUMO</b> · Visual &amp; Narrative Storyboard</span><span>Page 8 / 23</span></div>
+</div>
+
+<!-- ================= PAGE 9 · FRAME 09 · ISLAND 1 ================= -->
+<div class="page">
+  <div class="isl-head">
+    <div class="fnum"><span>Frame</span><b>09</b></div>
+    <div class="tt">Island 1 · Math Mountain<small>The Fruit Village — chapter intro &amp; 6 rounds</small></div>
+    <div class="isl-chips">
+      <span class="isl-chip"><i style="background:#FF9F1C"></i>Maths · Addition &amp; Counting</span>
+      <span class="isl-chip">bg_village.png</span><span class="isl-chip">obj_apple</span>
+    </div>
+  </div>
+  <div class="isl-cols">
+    <div class="isl-left">
+      <div class="mock mock-l">
+        <img class="bg" src="assets/bg_village.jpg"><div class="scrim"></div>
+        <img class="ch host" src="assets/char_king.png">
+        <div class="tag" style="left:26px;">King Arqam</div>
+        <img class="ch guide" src="assets/char_lumo.png">
+        <div class="tag" style="right:16px;">Lumo · Guide</div>
+        <div class="mockcard">
+          <span class="chip" style="background:#FF9F1C;">Maths · Ages 8–10</span>
+          <div class="t">Math Mountain — The Fruit Village</div>
+          <div class="s">&ldquo;The villagers grow fruit for the King. Today they need our help to count the fruit!&rdquo;</div>
+          <div class="q">◆ Quest: Solve 3 counting challenges to earn the first Crystal Shard.</div>
+        </div>
+        <div class="mockribbon">Level Intro · vo_intro_lvl1</div>
+      </div>
+      <div class="rounds">
+        <div class="rt-head"><span class="rt-t">Gameplay Rounds</span><span class="rt-n">6 rounds · LevelIntroScreen.cs → GameplayScreen.cs</span></div>
+        <table class="rt">
+          <tr><th style="width:52px;">Round</th><th style="width:76px;">Module</th><th style="width:62px;">Skill</th><th>Prompt (Ages 8–10) · Staging</th></tr>
+          <tr><td class="rid">L1R1</td><td class="rmod"><span style="background:#FF9F1C">math-choice</span></td><td>addition</td><td class="rprompt">&ldquo;2 apples and 1 apple — how many together?&rdquo; <em>· two fruit cards slide together on tap 3</em></td></tr>
+          <tr><td class="rid">L1R2</td><td class="rmod"><span style="background:#FF9F1C">math-choice</span></td><td>addition</td><td class="rprompt">&ldquo;3 bananas and 2 bananas — how many?&rdquo; <em>· banana groups join into 5</em></td></tr>
+          <tr><td class="rid">L1R3</td><td class="rmod"><span style="background:#FF9F1C">math-choice</span></td><td>addition</td><td class="rprompt">&ldquo;4 apples and 3 apples — how many?&rdquo; <em>· apple groups join into 7</em></td></tr>
+          <tr><td class="rid">P2_L1R4</td><td class="rmod"><span style="background:#FF9F1C">math-choice</span></td><td>counting</td><td class="rprompt">&ldquo;Count the mountain stars carefully!&rdquo; (12) <em>· 2×6 tray of obj_star</em></td></tr>
+          <tr><td class="rid">P2_L1R5</td><td class="rmod"><span style="background:#C9962B">choice-card</span></td><td>addition</td><td class="rprompt">&ldquo;Find the number with 3 tens and 5 ones!&rdquo; (35) <em>· clue plaque + 3 buttons</em></td></tr>
+          <tr><td class="rid">P2_L1R6</td><td class="rmod"><span style="background:#C9962B">choice-card</span></td><td>addition</td><td class="rprompt">&ldquo;What time will the mountain clock show in 2 hours?&rdquo; (5 o&rsquo;clock) <em>· time choices</em></td></tr>
+        </table>
+      </div>
+    </div>
+    <div class="isl-right">
+      <div class="notecard">
+        <div class="hostrow"><img src="assets/char_king.png"><div class="hn">King Arqam + Lumo<small>chapter hosts · ILO goals · quest ribbon</small></div></div>
+      </div>
+      <div class="notecard"><h4>Intended Learning Outcomes</h4>
+        <ul>
+          <li><b>Understand</b> — &ldquo;I can put two groups together and count them all!&rdquo;</li>
+          <li><b>Recall</b> — &ldquo;I can add small numbers all by myself!&rdquo;</li>
+          <li><b>Apply</b> — &ldquo;I can count things one by one!&rdquo;</li>
+        </ul>
+      </div>
+      <div class="notecard"><h4>Age Adaptation</h4>
+        <p><b>5–7:</b> easier sums (3+4=7), coin addition.<br><b>11–12:</b> 15-gem counting, mystery-number riddle (24), elapsed time 9:30 + 45m.</p>
+      </div>
+      <div class="notecard"><h4>Reward</h4>
+        <p>First <b>Crystal Shard</b> + up to 18 stars (XP +90, perfect-run bonus +10). Result screen asks: <i>&ldquo;What did you like most?&rdquo;</i></p>
+      </div>
+    </div>
+  </div>
+  <div class="pfoot"><span><b>LUMO</b> · Visual &amp; Narrative Storyboard · Act I — Foundation</span><span>Page 9 / 23</span></div>
+</div>
+
+<!-- ================= PAGE 10 · FRAME 10 · ISLAND 2 ================= -->
+<div class="page">
+  <div class="isl-head">
+    <div class="fnum"><span>Frame</span><b>10</b></div>
+    <div class="tt">Island 2 · Word Forest<small>Animal &amp; Color Garden — chapter intro &amp; 6 rounds</small></div>
+    <div class="isl-chips">
+      <span class="isl-chip"><i style="background:#34A853"></i>Reading · Sight Words &amp; Colors</span>
+      <span class="isl-chip">bg_garden.png</span><span class="isl-chip">obj_cat</span>
+    </div>
+  </div>
+  <div class="isl-cols">
+    <div class="isl-left">
+      <div class="mock mock-l">
+        <img class="bg" src="assets/bg_garden.jpg"><div class="scrim"></div>
+        <img class="ch host" src="assets/char_lexi.png">
+        <div class="tag" style="left:26px;">Princess Lexi</div>
+        <img class="ch guide" src="assets/char_lumo.png">
+        <div class="tag" style="right:16px;">Lumo · Guide</div>
+        <div class="mockcard">
+          <span class="chip" style="background:#34A853;">Reading · Ages 8–10</span>
+          <div class="t">Word Forest — Animal &amp; Color Garden</div>
+          <div class="s">&ldquo;The garden animals lost their name cards. Help them find the right cards!&rdquo;</div>
+          <div class="q">◆ Quest: Find the right picture in 3 rounds to earn the second Crystal Shard.</div>
+        </div>
+        <div class="mockribbon">Level Intro · vo_intro_lvl2</div>
+      </div>
+      <div class="rounds">
+        <div class="rt-head"><span class="rt-t">Gameplay Rounds</span><span class="rt-n">6 rounds · word-picture &amp; phonics cards</span></div>
+        <table class="rt">
+          <tr><th style="width:52px;">Round</th><th style="width:76px;">Module</th><th style="width:62px;">Skill</th><th>Prompt (Ages 8–10) · Staging</th></tr>
+          <tr><td class="rid">L2R1</td><td class="rmod"><span style="background:#34A853">word-picture</span></td><td>vocabulary</td><td class="rprompt">&ldquo;Find the Cat!&rdquo; <em>· [Hear Word] banner + 3 picture cards</em></td></tr>
+          <tr><td class="rid">L2R2</td><td class="rmod"><span style="background:#34A853">word-picture</span></td><td>vocabulary</td><td class="rprompt">&ldquo;Find the Dog!&rdquo; <em>· banner + 3 picture cards</em></td></tr>
+          <tr><td class="rid">L2R3</td><td class="rmod"><span style="background:#34A853">word-picture</span></td><td>vocabulary</td><td class="rprompt">&ldquo;Find the RED one!&rdquo; <em>· 3 color-tinted obj_ball cards</em></td></tr>
+          <tr><td class="rid">P2_L2R4</td><td class="rmod"><span style="background:#C9962B">choice-card</span></td><td>vocabulary</td><td class="rprompt">&ldquo;Which word starts with the same &lsquo;tr&rsquo; blend as TREE?&rdquo; (Train) <em>· 3 word pills</em></td></tr>
+          <tr><td class="rid">P2_L2R5</td><td class="rmod"><span style="background:#C9962B">choice-card</span></td><td>vocabulary</td><td class="rprompt">&ldquo;Which word rhymes with STAR?&rdquo; (Car) <em>· rhyme clue card</em></td></tr>
+          <tr><td class="rid">P2_L2R6</td><td class="rmod"><span style="background:#C9962B">choice-card</span></td><td>vocabulary</td><td class="rprompt">&ldquo;Which word means almost the same as BIG?&rdquo; (Huge) <em>· synonym card</em></td></tr>
+        </table>
+      </div>
+    </div>
+    <div class="isl-right">
+      <div class="notecard">
+        <div class="hostrow"><img src="assets/char_lexi.png"><div class="hn">Princess Lexi + Lumo<small>chapter hosts · spoken-word support</small></div></div>
+      </div>
+      <div class="notecard"><h4>Intended Learning Outcomes</h4>
+        <ul>
+          <li><b>Recognise</b> — &ldquo;I can find the word when I hear it!&rdquo;</li>
+          <li><b>Identify</b> — &ldquo;I know my color words!&rdquo;</li>
+        </ul>
+      </div>
+      <div class="notecard"><h4>Age Adaptation</h4>
+        <p><b>5–7:</b> starting letter of APPLE (A), rhymes with CAT (Hat), animal that says &ldquo;Meow&rdquo;.<br><b>11–12:</b> prefix UN- = not, suffix -FUL, context synonym <i>illuminated → lit up</i>.</p>
+      </div>
+      <div class="notecard"><h4>Audio Loop</h4>
+        <p>Every picture round pairs a <b>[Hear Word]</b> button with voice-over — listening first, reading second.</p>
+      </div>
+    </div>
+  </div>
+  <div class="pfoot"><span><b>LUMO</b> · Visual &amp; Narrative Storyboard · Act I — Foundation</span><span>Page 10 / 23</span></div>
+</div>
+
+<!-- ================= PAGE 11 · FRAME 11 · ISLAND 3 ================= -->
+<div class="page">
+  <div class="isl-head">
+    <div class="fnum"><span>Frame</span><b>11</b></div>
+    <div class="tt">Island 3 · Memory Garden<small>The Matching Bridge — chapter intro &amp; 6 rounds</small></div>
+    <div class="isl-chips">
+      <span class="isl-chip"><i style="background:#14B8A6"></i>Memory · Quantity Equivalence</span>
+      <span class="isl-chip">bg_bridge.png</span><span class="isl-chip">obj_star</span>
+    </div>
+  </div>
+  <div class="isl-cols">
+    <div class="isl-left">
+      <div class="mock mock-l">
+        <img class="bg" src="assets/bg_bridge.jpg"><div class="scrim"></div>
+        <img class="ch host" src="assets/char_king.png">
+        <div class="tag" style="left:26px;">King Arqam</div>
+        <img class="ch guide" src="assets/char_lumo.png">
+        <div class="tag" style="right:16px;">Lumo · Guide</div>
+        <div class="mockcard">
+          <span class="chip" style="background:#14B8A6;">Memory · Ages 8–10</span>
+          <div class="t">Memory Garden — The Matching Bridge</div>
+          <div class="s">&ldquo;The magic bridge to the castle is broken. It opens only when number triples are connected!&rdquo;</div>
+          <div class="q">◆ Quest: Connect each number, picture and word to rebuild the bridge.</div>
+        </div>
+        <div class="mockribbon">Level Intro · vo_intro_lvl3</div>
+      </div>
+      <div class="rounds">
+        <div class="rt-head"><span class="rt-t">Gameplay Rounds</span><span class="rt-n">6 rounds · flip cards → bridge board</span></div>
+        <table class="rt">
+          <tr><th style="width:52px;">Round</th><th style="width:76px;">Module</th><th style="width:62px;">Skill</th><th>Prompt (Ages 8–10) · Staging</th></tr>
+          <tr><td class="rid">P2_L3R4</td><td class="rmod"><span style="background:#14B8A6">memory-match</span></td><td>memory</td><td class="rprompt">Flip-card grid (2×3): pair garden animals with names <em>· cat / dog / bird</em></td></tr>
+          <tr><td class="rid">P2_L3R5</td><td class="rmod"><span style="background:#14B8A6">memory-match</span></td><td>memory</td><td class="rprompt">Flip-card grid: pair digits with number words <em>· 3 ↔ Three</em></td></tr>
+          <tr><td class="rid">P2_L3R6</td><td class="rmod"><span style="background:#14B8A6">memory-match</span></td><td>memory</td><td class="rprompt">Flip-card grid (2×4): antonym pairs <em>· Hot↔Cold, Up↔Down</em></td></tr>
+          <tr><td class="rid">L3R1</td><td class="rmod"><span style="background:#C9962B">matching</span></td><td>counting</td><td class="rprompt">Bridge board — Number | Picture | Word: <b>1</b> ↔ 1 apple ↔ &ldquo;one&rdquo;</td></tr>
+          <tr><td class="rid">L3R2</td><td class="rmod"><span style="background:#C9962B">matching</span></td><td>counting</td><td class="rprompt">Bridge board: <b>2</b> ↔ 2 bananas ↔ &ldquo;two&rdquo;</td></tr>
+          <tr><td class="rid">L3R3</td><td class="rmod"><span style="background:#C9962B">matching</span></td><td>counting</td><td class="rprompt">Bridge board: <b>3</b> ↔ 3 stars ↔ &ldquo;three&rdquo; <em>· all rows green → bridge rebuilt</em></td></tr>
+        </table>
+      </div>
+    </div>
+    <div class="isl-right">
+      <div class="notecard">
+        <div class="hostrow"><img src="assets/char_king.png"><div class="hn">King Arqam + Lumo<small>chapter hosts · bridge metaphor</small></div></div>
+      </div>
+      <div class="notecard"><h4>Intended Learning Outcomes</h4>
+        <ul>
+          <li><b>Understand</b> — &ldquo;Three, 3 and three apples all mean the same!&rdquo;</li>
+          <li><b>Recall</b> — &ldquo;I can remember where things are hiding!&rdquo;</li>
+        </ul>
+      </div>
+      <div class="notecard"><h4>Two Mechanics</h4>
+        <p>Rounds 1–3 train <b>working memory</b> with flip cards; rounds 4–6 build <b>quantity equivalence</b> — the same amount shown as digit, picture and word.</p>
+      </div>
+      <div class="notecard"><h4>Reward</h4>
+        <p>The broken bridge animates whole as the third shard appears — a visible, story-driven payoff.</p>
+      </div>
+    </div>
+  </div>
+  <div class="pfoot"><span><b>LUMO</b> · Visual &amp; Narrative Storyboard · Act I — Foundation</span><span>Page 11 / 23</span></div>
+</div>
+
+<!-- ================= PAGE 12 · FRAME 12 · ISLAND 4 ================= -->
+<div class="page">
+  <div class="isl-head">
+    <div class="fnum"><span>Frame</span><b>12</b></div>
+    <div class="tt">Island 4 · Learning Island<small>The Subtraction Castle — chapter intro &amp; 6 rounds</small></div>
+    <div class="isl-chips">
+      <span class="isl-chip"><i style="background:#1E88E5"></i>First Logic &amp; Subtraction</span>
+      <span class="isl-chip">bg_castle.png</span><span class="isl-chip">obj_key</span>
+    </div>
+  </div>
+  <div class="isl-cols">
+    <div class="isl-left">
+      <div class="mock mock-l">
+        <img class="bg" src="assets/bg_castle.jpg"><div class="scrim"></div>
+        <img class="ch host" src="assets/char_king.png">
+        <div class="tag" style="left:26px;">King Arqam</div>
+        <img class="ch guide" src="assets/char_lumo.png">
+        <div class="tag" style="right:16px;">Lumo · Guide</div>
+        <div class="mockcard">
+          <span class="chip" style="background:#1E88E5;">Logic · Ages 8–10</span>
+          <div class="t">Learning Island — The Subtraction Castle</div>
+          <div class="s">&ldquo;The castle cook gave food to the animals. Now the King needs to know how much is left!&rdquo;</div>
+          <div class="q">◆ Quest: Subtract to find what is left in 3 rounds.</div>
+        </div>
+        <div class="mockribbon">Level Intro · vo_intro_lvl4</div>
+      </div>
+      <div class="rounds">
+        <div class="rt-head"><span class="rt-t">Gameplay Rounds</span><span class="rt-n">6 rounds · logic cards → visual take-away</span></div>
+        <table class="rt">
+          <tr><th style="width:52px;">Round</th><th style="width:76px;">Module</th><th style="width:62px;">Skill</th><th>Prompt (Ages 8–10) · Staging</th></tr>
+          <tr><td class="rid">P2_L4R4</td><td class="rmod"><span style="background:#C9962B">choice-card</span></td><td>logic</td><td class="rprompt">&ldquo;How many sides all together — triangle + square?&rdquo; (7) <em>· shape cards</em></td></tr>
+          <tr><td class="rid">P2_L4R5</td><td class="rmod"><span style="background:#C9962B">choice-card</span></td><td>patterns</td><td class="rprompt">Skip-counting pattern: &ldquo;2, 4, 6, 8, …?&rdquo; (10) <em>· sequence pills</em></td></tr>
+          <tr><td class="rid">P2_L4R6</td><td class="rmod"><span style="background:#C9962B">choice-card</span></td><td>deduction</td><td class="rprompt">Race-order clues: &ldquo;Leo finished first…&rdquo; <em>· deductive reasoning</em></td></tr>
+          <tr><td class="rid">L4R1</td><td class="rmod"><span style="background:#1E88E5">math-choice</span></td><td>subtraction</td><td class="rprompt">Visual take-away: <b>8 − 3 = 5</b> <em>· removed items dim so children count what remains</em></td></tr>
+          <tr><td class="rid">L4R2</td><td class="rmod"><span style="background:#1E88E5">math-choice</span></td><td>subtraction</td><td class="rprompt">Visual take-away: <b>9 − 4 = 5</b></td></tr>
+          <tr><td class="rid">L4R3</td><td class="rmod"><span style="background:#1E88E5">math-choice</span></td><td>subtraction</td><td class="rprompt">Visual take-away: <b>10 − 6 = 4</b> <em>· castle cook&rsquo;s pantry story</em></td></tr>
+        </table>
+      </div>
+    </div>
+    <div class="isl-right">
+      <div class="notecard">
+        <div class="hostrow"><img src="assets/char_king.png"><div class="hn">King Arqam + Lumo<small>chapter hosts · pantry story frame</small></div></div>
+      </div>
+      <div class="notecard"><h4>Intended Learning Outcomes</h4>
+        <ul>
+          <li><b>Understand</b> — &ldquo;I can take away and see what is left!&rdquo;</li>
+          <li><b>Recall</b> — &ldquo;I know take-away answers super fast!&rdquo;</li>
+          <li><b>Apply</b> — &ldquo;I can do one sum, then another, and finish the quest!&rdquo;</li>
+        </ul>
+      </div>
+      <div class="notecard"><h4>Design Note</h4>
+        <p>Dimmed/faded subtracted items make <b>difference</b> visible — subtraction stays concrete before symbolic drills arrive in Act II.</p>
+      </div>
+    </div>
+  </div>
+  <div class="pfoot"><span><b>LUMO</b> · Visual &amp; Narrative Storyboard · Act I — Foundation</span><span>Page 12 / 23</span></div>
+</div>
+
+<!-- ================= PAGE 13 · FRAME 13 · ISLAND 5 ================= -->
+<div class="page">
+  <div class="isl-head">
+    <div class="fnum"><span>Frame</span><b>13</b></div>
+    <div class="tt">Island 5 · Art Studio<small>The Magic Spelling Library — chapter intro &amp; 6 rounds</small></div>
+    <div class="isl-chips">
+      <span class="isl-chip"><i style="background:#FF6FA5"></i>Letters, Spelling &amp; Pixel Craft</span>
+      <span class="isl-chip">bg_library.png</span><span class="isl-chip">obj_sun</span>
+    </div>
+  </div>
+  <div class="isl-cols">
+    <div class="isl-left">
+      <div class="mock mock-l">
+        <img class="bg" src="assets/bg_library.jpg"><div class="scrim"></div>
+        <img class="ch host" src="assets/char_lexi.png">
+        <div class="tag" style="left:26px;">Princess Lexi</div>
+        <img class="ch guide" src="assets/char_lumo.png">
+        <div class="tag" style="right:16px;">Lumo · Guide</div>
+        <div class="mockcard">
+          <span class="chip" style="background:#FF6FA5;">Spelling · Ages 8–10</span>
+          <div class="t">Art Studio — The Magic Spelling Library</div>
+          <div class="s">&ldquo;Letters flew off the pages of the magic books! Put them back in order.&rdquo;</div>
+          <div class="q">◆ Quest: Spell 3 words to fix the magic books.</div>
+        </div>
+        <div class="mockribbon">Level Intro · vo_intro_lvl5</div>
+      </div>
+      <div class="rounds">
+        <div class="rt-head"><span class="rt-t">Gameplay Rounds</span><span class="rt-n">6 rounds · pixel canvases → spelling slots</span></div>
+        <table class="rt">
+          <tr><th style="width:52px;">Round</th><th style="width:76px;">Module</th><th style="width:62px;">Skill</th><th>Prompt (Ages 8–10) · Staging</th></tr>
+          <tr><td class="rid">P2_L5R4</td><td class="rmod"><span style="background:#FF6FA5">pixel-art</span></td><td>creativity</td><td class="rprompt">Paint a glowing <b>Gold Frame</b> — target grid (3×3) left, your canvas right, named palette below</td></tr>
+          <tr><td class="rid">P2_L5R5</td><td class="rmod"><span style="background:#FF6FA5">pixel-art</span></td><td>symmetry</td><td class="rprompt">Mirror a <b>symmetrical pattern</b> (4×4) <em>· Gold / Sky / Coral / Mint swatches</em></td></tr>
+          <tr><td class="rid">P2_L5R6</td><td class="rmod"><span style="background:#FF6FA5">pixel-art</span></td><td>patterns</td><td class="rprompt">Complete the <b>checkerboard</b> <em>· alternating color logic</em></td></tr>
+          <tr><td class="rid">L5R1</td><td class="rmod"><span style="background:#C9962B">spelling</span></td><td>spelling</td><td class="rprompt">Spell <b>C-A-T</b> <em>· picture card + [Hear Word] + dashed slots + scrambled tiles</em></td></tr>
+          <tr><td class="rid">L5R2</td><td class="rmod"><span style="background:#C9962B">spelling</span></td><td>spelling</td><td class="rprompt">Spell <b>S-U-N</b> <em>· tap or drag letter tiles into place</em></td></tr>
+          <tr><td class="rid">L5R3</td><td class="rmod"><span style="background:#C9962B">spelling</span></td><td>spelling</td><td class="rprompt">Spell <b>D-O-G</b> <em>· the magic book closes with a shine on completion</em></td></tr>
+        </table>
+      </div>
+    </div>
+    <div class="isl-right">
+      <div class="notecard">
+        <div class="hostrow"><img src="assets/char_lexi.png"><div class="hn">Princess Lexi + Lumo<small>chapter hosts · magic library stage</small></div></div>
+      </div>
+      <div class="notecard"><h4>Intended Learning Outcomes</h4>
+        <ul>
+          <li><b>Construct</b> — &ldquo;I can build words letter by letter!&rdquo;</li>
+          <li><b>Produce</b> — &ldquo;I can paint a picture on a tiny grid!&rdquo;</li>
+        </ul>
+      </div>
+      <div class="notecard"><h4>Creative First</h4>
+        <p>Opens with free-form <b>pixel painting</b> before phonics — craft builds buy-in, then spelling rides on the same grid aesthetic.</p>
+      </div>
+    </div>
+  </div>
+  <div class="pfoot"><span><b>LUMO</b> · Visual &amp; Narrative Storyboard · Act II — Craft &amp; Discovery</span><span>Page 13 / 23</span></div>
+</div>
+
+<!-- ================= PAGE 14 · FRAME 14 · ISLAND 6 ================= -->
+<div class="page">
+  <div class="isl-head">
+    <div class="fnum"><span>Frame</span><b>14</b></div>
+    <div class="tt">Island 6 · Science Lab<small>The Magic Potion Lab — chapter intro &amp; 6 rounds</small></div>
+    <div class="isl-chips">
+      <span class="isl-chip"><i style="background:#7E5BEF"></i>Hands-On Science</span>
+      <span class="isl-chip">bg_lab.png</span><span class="isl-chip">obj_cauldron</span>
+    </div>
+  </div>
+  <div class="isl-cols">
+    <div class="isl-left">
+      <div class="mock mock-l">
+        <img class="bg" src="assets/bg_lab.jpg"><div class="scrim"></div>
+        <img class="ch host" src="assets/char_lexi.png">
+        <div class="tag" style="left:26px;">Princess Lexi</div>
+        <img class="ch guide" src="assets/char_lumo.png">
+        <div class="tag" style="right:16px;">Lumo · Guide</div>
+        <div class="mockcard">
+          <span class="chip" style="background:#7E5BEF;">Science · Ages 8–10</span>
+          <div class="t">Science Lab — The Magic Potion Lab</div>
+          <div class="s">&ldquo;Princess Lexi needs a magic potion with exact ingredients.&rdquo;</div>
+          <div class="q">◆ Quest: Add the right stars to the cauldron and find the total.</div>
+        </div>
+        <div class="mockribbon">Level Intro · vo_intro_lvl6</div>
+      </div>
+      <div class="rounds">
+        <div class="rt-head"><span class="rt-t">Gameplay Rounds</span><span class="rt-n">6 rounds · science cards → potion mixing</span></div>
+        <table class="rt">
+          <tr><th style="width:52px;">Round</th><th style="width:76px;">Module</th><th style="width:62px;">Skill</th><th>Prompt (Ages 8–10) · Staging</th></tr>
+          <tr><td class="rid">P2_L6R4</td><td class="rmod"><span style="background:#C9962B">choice-card</span></td><td>biology</td><td class="rprompt">Plant life cycle order: <b>Seed → Sprout → Young Plant → Tree</b></td></tr>
+          <tr><td class="rid">P2_L6R5</td><td class="rmod"><span style="background:#14B8A6">memory-match</span></td><td>habitats</td><td class="rprompt">Habitat memory match: <b>Fish ↔ Ocean · Bird ↔ Nest</b></td></tr>
+          <tr><td class="rid">P2_L6R6</td><td class="rmod"><span style="background:#C9962B">choice-card</span></td><td>matter</td><td class="rprompt">States of matter: &ldquo;Liquid water freezes into…?&rdquo; (<b>solid ice</b>)</td></tr>
+          <tr><td class="rid">L6R1</td><td class="rmod"><span style="background:#7E5BEF">potion</span></td><td>addition</td><td class="rprompt">Add <b>2 red + 3 blue stars</b> to the cauldron → tap total <b>5</b></td></tr>
+          <tr><td class="rid">L6R2</td><td class="rmod"><span style="background:#7E5BEF">potion</span></td><td>addition</td><td class="rprompt">Add <b>4 green + 1 yellow star</b> → tap total <b>5</b></td></tr>
+          <tr><td class="rid">L6R3</td><td class="rmod"><span style="background:#7E5BEF">potion</span></td><td>subtraction</td><td class="rprompt">Put in <b>6 stars</b>, tap <b>2</b> to remove → tap what remains (<b>4</b>)</td></tr>
+        </table>
+      </div>
+    </div>
+    <div class="isl-right">
+      <div class="notecard">
+        <div class="hostrow"><img src="assets/char_lexi.png"><div class="hn">Princess Lexi + Lumo<small>chapter hosts · bubbling cauldron stage</small></div></div>
+      </div>
+      <div class="notecard"><h4>Intended Learning Outcomes</h4>
+        <ul>
+          <li><b>Apply</b> — &ldquo;I can add and remove to get the right number!&rdquo;</li>
+          <li><b>Classify</b> — &ldquo;I can sort by color and count!&rdquo;</li>
+        </ul>
+      </div>
+      <div class="notecard"><h4>Staging</h4>
+        <p>Central <b>obj_cauldron</b> surrounded by color-tinted star ingredients; stars visibly fly into the pot, totals glow on the brew.</p>
+      </div>
+    </div>
+  </div>
+  <div class="pfoot"><span><b>LUMO</b> · Visual &amp; Narrative Storyboard · Act II — Craft &amp; Discovery</span><span>Page 14 / 23</span></div>
+</div>
+
+<!-- ================= PAGE 15 · FRAME 15 · ISLAND 7 ================= -->
+<div class="page">
+  <div class="isl-head">
+    <div class="fnum"><span>Frame</span><b>15</b></div>
+    <div class="tt">Island 7 · Sky Kingdom<small>The Number Mountain — chapter intro &amp; 6 rounds</small></div>
+    <div class="isl-chips">
+      <span class="isl-chip"><i style="background:#38BDF8"></i>Number Skies · Weather Science</span>
+      <span class="isl-chip">bg_mountain.png</span><span class="isl-chip">obj_bird</span>
+    </div>
+  </div>
+  <div class="isl-cols">
+    <div class="isl-left">
+      <div class="mock mock-l">
+        <img class="bg" src="assets/bg_mountain.jpg"><div class="scrim"></div>
+        <img class="ch host" src="assets/char_king.png">
+        <div class="tag" style="left:26px;">King Arqam</div>
+        <img class="ch guide" src="assets/char_lumo.png">
+        <div class="tag" style="right:16px;">Lumo · Guide</div>
+        <div class="mockcard">
+          <span class="chip" style="background:#38BDF8;">Numbers · Ages 8–10</span>
+          <div class="t">Sky Kingdom — The Number Mountain</div>
+          <div class="s">&ldquo;Each mountain gate opens with a secret number. Climb with the number line!&rdquo;</div>
+          <div class="q">◆ Quest: Move along the number line to open 3 gates.</div>
+        </div>
+        <div class="mockribbon">Level Intro · vo_intro_lvl7</div>
+      </div>
+      <div class="rounds">
+        <div class="rt-head"><span class="rt-t">Gameplay Rounds</span><span class="rt-n">6 rounds · sky science → number-line jumps</span></div>
+        <table class="rt">
+          <tr><th style="width:52px;">Round</th><th style="width:76px;">Module</th><th style="width:62px;">Skill</th><th>Prompt (Ages 8–10) · Staging</th></tr>
+          <tr><td class="rid">P2_L7R4</td><td class="rmod"><span style="background:#C9962B">choice-card</span></td><td>science</td><td class="rprompt">What brings rain? <em>· rain-cloud staging</em></td></tr>
+          <tr><td class="rid">P2_L7R5</td><td class="rmod"><span style="background:#C9962B">choice-card</span></td><td>science</td><td class="rprompt">Why does lightning come before thunder? <em>· light travels faster than sound</em></td></tr>
+          <tr><td class="rid">P2_L7R6</td><td class="rmod"><span style="background:#C9962B">choice-card</span></td><td>science</td><td class="rprompt">What makes a rainbow? <em>· sunlight + water droplets</em></td></tr>
+          <tr><td class="rid">L7R1</td><td class="rmod"><span style="background:#1E88E5">math-choice</span></td><td>addition</td><td class="rprompt"><b>8 + 7 = 15</b> on the number line <em>· glowing gold start marker, jump animation</em></td></tr>
+          <tr><td class="rid">L7R2</td><td class="rmod"><span style="background:#1E88E5">math-choice</span></td><td>subtraction</td><td class="rprompt"><b>16 − 7 = 9</b> on the number line (0..20)</td></tr>
+          <tr><td class="rid">L7R3</td><td class="rmod"><span style="background:#1E88E5">math-choice</span></td><td>addition</td><td class="rprompt"><b>9 + 6 = 15</b> <em>· third gate opens — the peak is reached</em></td></tr>
+        </table>
+      </div>
+    </div>
+    <div class="isl-right">
+      <div class="notecard">
+        <div class="hostrow"><img src="assets/char_king.png"><div class="hn">King Arqam + Lumo<small>chapter hosts · mountain-gate metaphor</small></div></div>
+      </div>
+      <div class="notecard"><h4>Intended Learning Outcomes</h4>
+        <ul>
+          <li><b>Apply</b> — &ldquo;I can do big adds and take-aways!&rdquo;</li>
+          <li><b>Understand</b> — &ldquo;I can use science clues to help me solve!&rdquo;</li>
+        </ul>
+      </div>
+      <div class="notecard"><h4>Tool Introduction</h4>
+        <p>First appearance of the interactive <b>0–20 number line</b> — a mental-math scaffold reused in later islands and the finale.</p>
+      </div>
+    </div>
+  </div>
+  <div class="pfoot"><span><b>LUMO</b> · Visual &amp; Narrative Storyboard · Act II — Craft &amp; Discovery</span><span>Page 15 / 23</span></div>
+</div>
+
+<!-- ================= PAGE 16 · FRAME 16 · ISLAND 8 ================= -->
+<div class="page">
+  <div class="isl-head">
+    <div class="fnum"><span>Frame</span><b>16</b></div>
+    <div class="tt">Island 8 · Ocean Reef<small>The Word Explorer — chapter intro &amp; 6 rounds</small></div>
+    <div class="isl-chips">
+      <span class="isl-chip"><i style="background:#0EA5E9"></i>Sea &amp; Words · Adjectives</span>
+      <span class="isl-chip">bg_garden.png</span><span class="isl-chip">obj_fish</span>
+    </div>
+  </div>
+  <div class="isl-cols">
+    <div class="isl-left">
+      <div class="mock mock-l">
+        <img class="bg" src="assets/bg_garden.jpg"><div class="scrim"></div>
+        <img class="ch host" src="assets/char_lexi.png">
+        <div class="tag" style="left:26px;">Princess Lexi</div>
+        <img class="ch guide" src="assets/char_lumo.png">
+        <div class="tag" style="right:16px;">Lumo · Guide</div>
+        <div class="mockcard">
+          <span class="chip" style="background:#0EA5E9;">Words · Ages 8–10</span>
+          <div class="t">Ocean Reef — The Word Explorer</div>
+          <div class="s">&ldquo;Princess Lexi hid treasure words in the garden. Find them by color and size!&rdquo;</div>
+          <div class="q">◆ Quest: Find the right picture in 3 rounds.</div>
+        </div>
+        <div class="mockribbon">Level Intro · vo_intro_lvl8</div>
+      </div>
+      <div class="rounds">
+        <div class="rt-head"><span class="rt-t">Gameplay Rounds</span><span class="rt-n">6 rounds · marine science → attributes</span></div>
+        <table class="rt">
+          <tr><th style="width:52px;">Round</th><th style="width:76px;">Module</th><th style="width:62px;">Skill</th><th>Prompt (Ages 8–10) · Staging</th></tr>
+          <tr><td class="rid">P2_L8R4</td><td class="rmod"><span style="background:#C9962B">choice-card</span></td><td>biology</td><td class="rprompt">How do fish breathe underwater? <em>· gills take oxygen from water</em></td></tr>
+          <tr><td class="rid">P2_L8R5</td><td class="rmod"><span style="background:#14B8A6">memory-match</span></td><td>adaptation</td><td class="rprompt">Reef creatures memory match <em>· creature ↔ its survival trick</em></td></tr>
+          <tr><td class="rid">P2_L8R6</td><td class="rmod"><span style="background:#C9962B">choice-card</span></td><td>biology</td><td class="rprompt">Why do small reef fish shelter in coral branches?</td></tr>
+          <tr><td class="rid">L8R1</td><td class="rmod"><span style="background:#34A853">word-picture</span></td><td>adjectives</td><td class="rprompt">&ldquo;Find the RED ball!&rdquo; <em>· color + noun attribute cards</em></td></tr>
+          <tr><td class="rid">L8R2</td><td class="rmod"><span style="background:#34A853">word-picture</span></td><td>adjectives</td><td class="rprompt">&ldquo;Find the BIG tree!&rdquo; <em>· 1.35× scale vs 0.62× small tree</em></td></tr>
+          <tr><td class="rid">L8R3</td><td class="rmod"><span style="background:#34A853">word-picture</span></td><td>adjectives</td><td class="rprompt">&ldquo;Find the SMALL house!&rdquo; <em>· scale recognition locks the shard</em></td></tr>
+        </table>
+      </div>
+    </div>
+    <div class="isl-right">
+      <div class="notecard">
+        <div class="hostrow"><img src="assets/char_lexi.png"><div class="hn">Princess Lexi + Lumo<small>chapter hosts · treasure-word hunt</small></div></div>
+      </div>
+      <div class="notecard"><h4>Intended Learning Outcomes</h4>
+        <ul>
+          <li><b>Identify</b> — &ldquo;I can find science words I know!&rdquo;</li>
+          <li><b>Recall</b> — &ldquo;I remember the fun facts!&rdquo;</li>
+        </ul>
+      </div>
+      <div class="notecard"><h4>Visual Grammar</h4>
+        <p>Adjectives are shown <b>literally</b>: hue tints for colors, true 1.35×/0.62× sprite scales for size — the picture teaches the word.</p>
+      </div>
+    </div>
+  </div>
+  <div class="pfoot"><span><b>LUMO</b> · Visual &amp; Narrative Storyboard · Act II — Craft &amp; Discovery</span><span>Page 16 / 23</span></div>
+</div>
+
+<!-- ================= PAGE 17 · FRAME 17 · ISLAND 9 ================= -->
+<div class="page">
+  <div class="isl-head">
+    <div class="fnum"><span>Frame</span><b>17</b></div>
+    <div class="tt">Island 9 · Puzzle Park<small>The Treasure Map — chapter intro &amp; 6 rounds</small></div>
+    <div class="isl-chips">
+      <span class="isl-chip"><i style="background:#10B981"></i>Spatial Directions &amp; Grids</span>
+      <span class="isl-chip">bg_map.png</span><span class="isl-chip">obj_chest</span>
+    </div>
+  </div>
+  <div class="isl-cols">
+    <div class="isl-left">
+      <div class="mock mock-l">
+        <img class="bg" src="assets/bg_map.jpg"><div class="scrim"></div>
+        <img class="ch host" src="assets/char_king.png">
+        <div class="tag" style="left:26px;">King Arqam</div>
+        <img class="ch guide" src="assets/char_lumo.png">
+        <div class="tag" style="right:16px;">Lumo · Guide</div>
+        <div class="mockcard">
+          <span class="chip" style="background:#10B981;">Spatial · Ages 8–10</span>
+          <div class="t">Puzzle Park — The Treasure Map</div>
+          <div class="s">&ldquo;A treasure chest is hidden on the map. Follow the directions to find it!&rdquo;</div>
+          <div class="q">◆ Quest: Move the hero on the grid to reach the treasure.</div>
+        </div>
+        <div class="mockribbon">Level Intro · vo_intro_lvl9</div>
+      </div>
+      <div class="rounds">
+        <div class="rt-head"><span class="rt-t">Gameplay Rounds</span><span class="rt-n">6 rounds · grid navigation &amp; key math</span></div>
+        <table class="rt">
+          <tr><th style="width:52px;">Round</th><th style="width:76px;">Module</th><th style="width:62px;">Skill</th><th>Prompt (Ages 8–10) · Staging</th></tr>
+          <tr><td class="rid">P2_L9R4</td><td class="rmod"><span style="background:#10B981">directions</span></td><td>grid</td><td class="rprompt"><b>5×5 tile map</b>: hero token → treasure chest <em>· 4-way D-pad right</em></td></tr>
+          <tr><td class="rid">P2_L9R5</td><td class="rmod"><span style="background:#C9962B">choice-card</span></td><td>spatial</td><td class="rprompt">Mental path-tracing riddle <em>· trace the route in your head</em></td></tr>
+          <tr><td class="rid">P2_L9R6</td><td class="rmod"><span style="background:#C9962B">choice-card</span></td><td>compass</td><td class="rprompt">Compass pattern sequence: <b>North → East → South → West</b></td></tr>
+          <tr><td class="rid">L9R1</td><td class="rmod"><span style="background:#10B981">directions</span></td><td>grid</td><td class="rprompt">Grid navigation to the chest <em>· hero_a / hero_b as the token</em></td></tr>
+          <tr><td class="rid">L9R2</td><td class="rmod"><span style="background:#10B981">directions</span></td><td>grid</td><td class="rprompt">Longer route, same D-pad verbs</td></tr>
+          <tr><td class="rid">L9R3</td><td class="rmod"><span style="background:#10B981">directions</span></td><td>counting</td><td class="rprompt">&ldquo;Collect 7 keys, then use 2! How many are left?&rdquo; (<b>5</b>) <em>· tap 7 golden keys</em></td></tr>
+        </table>
+      </div>
+    </div>
+    <div class="isl-right">
+      <div class="notecard">
+        <div class="hostrow"><img src="assets/char_king.png"><div class="hn">King Arqam + Lumo<small>chapter hosts · treasure-map stage</small></div></div>
+      </div>
+      <div class="notecard"><h4>Intended Learning Outcomes</h4>
+        <ul>
+          <li><b>Apply</b> — &ldquo;I can follow the map steps to the treasure!&rdquo;</li>
+          <li><b>Apply</b> — &ldquo;I can count my keys and steps!&rdquo;</li>
+        </ul>
+      </div>
+      <div class="notecard"><h4>Staging</h4>
+        <p>Map on the left, <b>UP / DOWN / LEFT / RIGHT</b> D-pad on the right; the chosen hero walks tile-by-tile with a compass rose on the parchment.</p>
+      </div>
+    </div>
+  </div>
+  <div class="pfoot"><span><b>LUMO</b> · Visual &amp; Narrative Storyboard · Act III — Royal Missions</span><span>Page 17 / 23</span></div>
+</div>
+
+<!-- ================= PAGE 18 · FRAME 18 · ISLAND 10 ================= -->
+<div class="page">
+  <div class="isl-head">
+    <div class="fnum"><span>Frame</span><b>18</b></div>
+    <div class="tt">Island 10 · Space Station<small>The Royal Math Mission — chapter intro &amp; 6 rounds</small></div>
+    <div class="isl-chips">
+      <span class="isl-chip"><i style="background:#6366F1"></i>Space Logic · Two-Step Math</span>
+      <span class="isl-chip">bg_castle.png</span><span class="isl-chip">obj_gem</span>
+    </div>
+  </div>
+  <div class="isl-cols">
+    <div class="isl-left">
+      <div class="mock mock-l">
+        <img class="bg" src="assets/bg_castle.jpg"><div class="scrim"></div>
+        <img class="ch host" src="assets/char_king.png">
+        <div class="tag" style="left:26px;">King Arqam</div>
+        <img class="ch guide" src="assets/char_lumo.png">
+        <div class="tag" style="right:16px;">Lumo · Guide</div>
+        <div class="mockcard">
+          <span class="chip" style="background:#6366F1;">Logic · Ages 8–10</span>
+          <div class="t">Space Station — The Royal Math Mission</div>
+          <div class="s">&ldquo;The King&rsquo;s royal feast needs exact amounts. Solve it step by step!&rdquo;</div>
+          <div class="q">◆ Quest: Solve 3 two-step problems for the King.</div>
+        </div>
+        <div class="mockribbon">Level Intro · vo_intro_lvl10</div>
+      </div>
+      <div class="rounds">
+        <div class="rt-head"><span class="rt-t">Gameplay Rounds</span><span class="rt-n">6 rounds · astronomy → chained equations</span></div>
+        <table class="rt">
+          <tr><th style="width:52px;">Round</th><th style="width:76px;">Module</th><th style="width:62px;">Skill</th><th>Prompt (Ages 8–10) · Staging</th></tr>
+          <tr><td class="rid">P2_L10R4</td><td class="rmod"><span style="background:#C9962B">choice-card</span></td><td>astronomy</td><td class="rprompt">Closest planet to the Sun? (<b>Mercury</b>)</td></tr>
+          <tr><td class="rid">P2_L10R5</td><td class="rmod"><span style="background:#14B8A6">memory-match</span></td><td>astronomy</td><td class="rprompt">Celestial memory match: <b>Sun↔Star · Earth↔Planet · Moon↔Orbit</b></td></tr>
+          <tr><td class="rid">P2_L10R6</td><td class="rmod"><span style="background:#C9962B">choice-card</span></td><td>science</td><td class="rprompt">Why do astronauts float on the station? <em>· microgravity</em></td></tr>
+          <tr><td class="rid">L10R1</td><td class="rmod"><span style="background:#1E88E5">math-choice</span></td><td>two-step</td><td class="rprompt"><b>(8 + 5) − 4 = 9</b> <em>· step badges break the chain into visible stages</em></td></tr>
+          <tr><td class="rid">L10R2</td><td class="rmod"><span style="background:#1E88E5">math-choice</span></td><td>two-step</td><td class="rprompt"><b>(7 + 6) − 3 = 10</b></td></tr>
+          <tr><td class="rid">L10R3</td><td class="rmod"><span style="background:#1E88E5">math-choice</span></td><td>two-step</td><td class="rprompt"><b>(12 − 2) + 3 = 13</b> <em>· royal feast served on completion</em></td></tr>
+        </table>
+      </div>
+    </div>
+    <div class="isl-right">
+      <div class="notecard">
+        <div class="hostrow"><img src="assets/char_king.png"><div class="hn">King Arqam + Lumo<small>chapter hosts · royal mission framing</small></div></div>
+      </div>
+      <div class="notecard"><h4>Intended Learning Outcomes</h4>
+        <ul>
+          <li><b>Deduce</b> — &ldquo;I can do two sums and find the royal answer!&rdquo;</li>
+          <li><b>Recall</b> — &ldquo;I remember the facts the King asked about!&rdquo;</li>
+        </ul>
+      </div>
+      <div class="notecard"><h4>Difficulty Step</h4>
+        <p>First <b>chained two-step</b> equations; intermediate results shown as badges so working memory is supported, not tested.</p>
+      </div>
+    </div>
+  </div>
+  <div class="pfoot"><span><b>LUMO</b> · Visual &amp; Narrative Storyboard · Act III — Royal Missions</span><span>Page 18 / 23</span></div>
+</div>
+
+<!-- ================= PAGE 19 · FRAME 19 · ISLAND 11 ================= -->
+<div class="page">
+  <div class="isl-head">
+    <div class="fnum"><span>Frame</span><b>19</b></div>
+    <div class="tt">Island 11 · Kindness Corner<small>The Sentence Kingdom — chapter intro &amp; 6 rounds</small></div>
+    <div class="isl-chips">
+      <span class="isl-chip"><i style="background:#F59E0B"></i>Sentences &amp; Social-Emotional</span>
+      <span class="isl-chip">bg_kingdom.png</span><span class="isl-chip">obj_house</span>
+    </div>
+  </div>
+  <div class="isl-cols">
+    <div class="isl-left">
+      <div class="mock mock-l">
+        <img class="bg" src="assets/bg_kingdom.jpg"><div class="scrim"></div>
+        <img class="ch host" src="assets/char_lexi.png">
+        <div class="tag" style="left:26px;">Princess Lexi</div>
+        <img class="ch guide" src="assets/char_lumo.png">
+        <div class="tag" style="right:16px;">Lumo · Guide</div>
+        <div class="mockcard">
+          <span class="chip" style="background:#F59E0B;">Sentences · Ages 8–10</span>
+          <div class="t">Kindness Corner — The Sentence Kingdom</div>
+          <div class="s">&ldquo;The words in the kingdom lost their order. Put them back to build sentences!&rdquo;</div>
+          <div class="q">◆ Quest: Build 3 sentences in the right order.</div>
+        </div>
+        <div class="mockribbon">Level Intro · vo_intro_lvl11</div>
+      </div>
+      <div class="rounds">
+        <div class="rt-head"><span class="rt-t">Gameplay Rounds</span><span class="rt-n">6 rounds · SEL scenarios → sentence building</span></div>
+        <table class="rt">
+          <tr><th style="width:52px;">Round</th><th style="width:76px;">Module</th><th style="width:62px;">Skill</th><th>Prompt (Ages 8–10) · Staging</th></tr>
+          <tr><td class="rid">P2_L11R4</td><td class="rmod"><span style="background:#C9962B">choice-card</span></td><td>empathy</td><td class="rprompt">Maya drops her drawing — what helps? <em>· recognize feelings, offer kind words</em></td></tr>
+          <tr><td class="rid">P2_L11R5</td><td class="rmod"><span style="background:#C9962B">choice-card</span></td><td>gratitude</td><td class="rprompt">How do we say thank you politely?</td></tr>
+          <tr><td class="rid">P2_L11R6</td><td class="rmod"><span style="background:#C9962B">choice-card</span></td><td>fairness</td><td class="rprompt">Sharing one ball among four friends — taking turns fairly</td></tr>
+          <tr><td class="rid">L11R1</td><td class="rmod"><span style="background:#34A853">sentence</span></td><td>grammar</td><td class="rprompt">Order the words: <b>&ldquo;I · see · a · cat&rdquo;</b> <em>· word slots + [Hear Sentence]</em></td></tr>
+          <tr><td class="rid">L11R2</td><td class="rmod"><span style="background:#34A853">sentence</span></td><td>grammar</td><td class="rprompt">Order the words: <b>&ldquo;The · ball · is · red&rdquo;</b></td></tr>
+          <tr><td class="rid">L11R3</td><td class="rmod"><span style="background:#34A853">sentence</span></td><td>grammar</td><td class="rprompt">Order the words: <b>&ldquo;The · dog · can · run&rdquo;</b> <em>· sentence reads aloud when complete</em></td></tr>
+        </table>
+      </div>
+    </div>
+    <div class="isl-right">
+      <div class="notecard">
+        <div class="hostrow"><img src="assets/char_lexi.png"><div class="hn">Princess Lexi + Lumo<small>chapter hosts · kindness stage</small></div></div>
+      </div>
+      <div class="notecard"><h4>Intended Learning Outcomes</h4>
+        <ul>
+          <li><b>Construct</b> — &ldquo;I can build a whole sentence!&rdquo;</li>
+          <li><b>Choose</b> — &ldquo;I can help a friend who is having a hard feeling.&rdquo;</li>
+          <li><b>Recognise</b> — &ldquo;I can tell how a friend is feeling!&rdquo;</li>
+        </ul>
+      </div>
+      <div class="notecard"><h4>SEL Thread</h4>
+        <p>The only island pairing <b>grammar</b> with <b>social-emotional learning</b> — kind choices and kind sentences share the stage.</p>
+      </div>
+    </div>
+  </div>
+  <div class="pfoot"><span><b>LUMO</b> · Visual &amp; Narrative Storyboard · Act III — Royal Missions</span><span>Page 19 / 23</span></div>
+</div>
+
+<!-- ================= PAGE 20 · FRAME 20 · ISLAND 12 ================= -->
+<div class="page">
+  <div class="isl-head">
+    <div class="fnum"><span>Frame</span><b>20</b></div>
+    <div class="tt">Island 12 · Dino Valley<small>The Royal Workshop — chapter intro &amp; 6 rounds</small></div>
+    <div class="isl-chips">
+      <span class="isl-chip"><i style="background:#8D6E63"></i>Discovery · Paleontology &amp; Sorting</span>
+      <span class="isl-chip">bg_workshop.png</span><span class="isl-chip">obj_tree</span>
+    </div>
+  </div>
+  <div class="isl-cols">
+    <div class="isl-left">
+      <div class="mock mock-l">
+        <img class="bg" src="assets/bg_workshop.jpg"><div class="scrim"></div>
+        <img class="ch host" src="assets/char_king.png">
+        <div class="tag" style="left:26px;">King Arqam</div>
+        <img class="ch guide" src="assets/char_lumo.png">
+        <div class="tag" style="right:16px;">Lumo · Guide</div>
+        <div class="mockcard">
+          <span class="chip" style="background:#8D6E63;">Discovery · Ages 8–10</span>
+          <div class="t">Dino Valley — The Royal Workshop</div>
+          <div class="s">&ldquo;The royal workshop crafts the crown for the Crystal of Knowledge. Sort the items and count!&rdquo;</div>
+          <div class="q">◆ Quest: Sort items by color and solve the counting puzzles.</div>
+        </div>
+        <div class="mockribbon">Level Intro · vo_intro_lvl12</div>
+      </div>
+      <div class="rounds">
+        <div class="rt-head"><span class="rt-t">Gameplay Rounds</span><span class="rt-n">6 rounds · fossils → workshop sorting</span></div>
+        <table class="rt">
+          <tr><th style="width:52px;">Round</th><th style="width:76px;">Module</th><th style="width:62px;">Skill</th><th>Prompt (Ages 8–10) · Staging</th></tr>
+          <tr><td class="rid">P2_L12R4</td><td class="rmod"><span style="background:#C9962B">choice-card</span></td><td>earth-sc.</td><td class="rprompt">How do fossils form? <em>· buried under sediment layers</em></td></tr>
+          <tr><td class="rid">P2_L12R5</td><td class="rmod"><span style="background:#C9962B">choice-card</span></td><td>biology</td><td class="rprompt">What did Triceratops eat? <em>· herbivore teeth clue</em></td></tr>
+          <tr><td class="rid">P2_L12R6</td><td class="rmod"><span style="background:#C9962B">choice-card</span></td><td>deduction</td><td class="rprompt">Fossilized footprint trackways → what was the animal doing?</td></tr>
+          <tr><td class="rid">L12R1</td><td class="rmod"><span style="background:#8D6E63">sorting</span></td><td>classify</td><td class="rprompt">Phase 1: drag mixed <b>red / blue</b> stars &amp; gems into the Red Box and Blue Box</td></tr>
+          <tr><td class="rid">L12R2</td><td class="rmod"><span style="background:#8D6E63">sorting</span></td><td>classify</td><td class="rprompt">Sort and verify both boxes <em>· tap-or-drag, color labels</em></td></tr>
+          <tr><td class="rid">L12R3</td><td class="rmod"><span style="background:#8D6E63">sorting</span></td><td>subtraction</td><td class="rprompt">Phase 2: King&rsquo;s count — 5 red + 5 blue = 10, minus 2 → <b>8 left</b> <em>· forges the 12th shard!</em></td></tr>
+        </table>
+      </div>
+    </div>
+    <div class="isl-right">
+      <div class="notecard">
+        <div class="hostrow"><img src="assets/char_king.png"><div class="hn">King Arqam + Lumo<small>chapter hosts · workshop forge stage</small></div></div>
+      </div>
+      <div class="notecard"><h4>Intended Learning Outcomes</h4>
+        <ul>
+          <li><b>Apply</b> — &ldquo;I can sort, add and take away in the workshop!&rdquo;</li>
+          <li><b>Classify</b> — &ldquo;I can put things in the right box!&rdquo;</li>
+        </ul>
+      </div>
+      <div class="notecard"><h4>Story Beat</h4>
+        <p>Completing L12R3 forges the <b>12th and final Crystal Shard</b> — the crown is ready, and the path to the Music Room opens.</p>
+      </div>
+    </div>
+  </div>
+  <div class="pfoot"><span><b>LUMO</b> · Visual &amp; Narrative Storyboard · Act III — Royal Missions</span><span>Page 20 / 23</span></div>
+</div>
+
+<!-- ================= PAGE 21 · FRAME 21 · ISLAND 13 FINALE ================= -->
+<div class="page">
+  <div class="isl-head">
+    <div class="fnum"><span>Frame</span><b>21</b></div>
+    <div class="tt">Island 13 · Music Room — Grand Finale<small>The Crystal of Knowledge — 15-round mastery gauntlet</small></div>
+    <div class="isl-chips">
+      <span class="isl-chip"><i style="background:#FFC53D"></i>Crystal Finale · Music &amp; Mastery</span>
+      <span class="isl-chip">bg_final.png</span><span class="isl-chip">obj_crystal</span>
+    </div>
+  </div>
+  <div class="isl-cols">
+    <div class="isl-left">
+      <div class="mock mock-l">
+        <img class="bg" src="assets/bg_final.jpg"><div class="scrim"></div>
+        <img class="ch host" src="assets/char_shadow.png" style="width:132px;">
+        <div class="tag" style="left:26px;">Shadow of Confusion</div>
+        <img class="ch guide" src="assets/char_lumo.png">
+        <div class="tag" style="right:16px;">Lumo · Guide</div>
+        <div class="mockcard">
+          <span class="chip" style="background:#C9962B;">Finale · Ages 8–10</span>
+          <div class="t">Music Room — The Crystal of Knowledge</div>
+          <div class="s">&ldquo;You did it, hero! The 12 shards are yours. Now face the final challenge and restore the Crystal of Knowledge!&rdquo;</div>
+          <div class="q">◆ Quest: Complete 12 tasks + 3 crystal chimes = 15 finale rounds.</div>
+        </div>
+        <div class="mockribbon">Level Intro · vo_intro_lvl13</div>
+      </div>
+      <div class="rounds">
+        <div class="rt-head"><span class="rt-t">Finale Sequence</span><span class="rt-n">15 rounds · 3 music echoes + 12 mastery tasks</span></div>
+        <table class="rt">
+          <tr><th style="width:52px;">Round</th><th style="width:76px;">Module</th><th style="width:62px;">Skill</th><th>Challenge</th></tr>
+          <tr><td class="rid">P2_L13R13</td><td class="rmod"><span style="background:#C9962B">music-play</span></td><td>music</td><td class="rprompt">Listen to the 3-note chime <b>C–E–G</b>, play it back on the rainbow xylophone</td></tr>
+          <tr><td class="rid">P2_L13R14</td><td class="rmod"><span style="background:#C9962B">music-play</span></td><td>music</td><td class="rprompt">Scale climb C–D–E → tap the next note up (<b>F</b>)</td></tr>
+          <tr><td class="rid">P2_L13R15</td><td class="rmod"><span style="background:#C9962B">music-play</span></td><td>music</td><td class="rprompt">Echo the 4-note finale melody <b>C–E–G–C</b></td></tr>
+          <tr><td class="rid">F1–F3</td><td class="rmod"><span style="background:#1E88E5">math-choice</span></td><td>mixed</td><td class="rprompt">6+7 coins (13) · 14−6 (8) · 9+4 then −5 (8)</td></tr>
+          <tr><td class="rid">F4–F6</td><td class="rmod"><span style="background:#34A853">word skills</span></td><td>mixed</td><td class="rprompt">Find the Cat · spell <b>S-T-A-R</b> · order &ldquo;I see a dog!&rdquo;</td></tr>
+          <tr><td class="rid">F7–F9</td><td class="rmod"><span style="background:#14B8A6">matching</span></td><td>mixed</td><td class="rprompt">Connect 4/four/4★ &amp; 5/five/5🍎 · cauldron 4+2=6 · move 2 UP, 1 RIGHT</td></tr>
+          <tr><td class="rid">F10–F12</td><td class="rmod"><span style="background:#8D6E63">sorting/match</span></td><td>mixed</td><td class="rprompt">Sort &amp; count BLUE items (4) · 9 stars, 3 fly away (6) · 7↔seven, 8↔eight, 9↔nine gate</td></tr>
+        </table>
+      </div>
+    </div>
+    <div class="isl-right">
+      <div class="notecard">
+        <div class="hostrow"><img src="assets/char_shadow.png"><div class="hn">The Shadow of Confusion + Lumo<small>the Shadow is the final examiner — never punitive</small></div></div>
+      </div>
+      <div class="notecard"><h4>Intended Learning Outcomes</h4>
+        <ul>
+          <li><b>Apply</b> — &ldquo;I can use all my number powers!&rdquo;</li>
+          <li><b>Produce</b> — &ldquo;I can build words, sentences and find the way!&rdquo;</li>
+          <li><b>Perform</b> — &ldquo;I can listen and play the tune back!&rdquo;</li>
+        </ul>
+      </div>
+      <div class="notecard"><h4>Gauntlet Design</h4>
+        <p>Three <b>xylophone echoes</b> open the duel; the Shadow then re-casts one challenge from every island skill — a full-curriculum victory lap ending at the crystal gate.</p>
+      </div>
+    </div>
+  </div>
+  <div class="pfoot"><span><b>LUMO</b> · Visual &amp; Narrative Storyboard · Climax</span><span>Page 21 / 23</span></div>
+</div>
+
+<!-- ================= PAGE 22 · FRAMES 22–23 · CELEBRATIONS ================= -->
+<div class="page">
+  <div class="phead">
+    <span class="kick">06 · Celebration</span>
+    <h2>Post-Level &amp; Grand Finale Frames</h2>
+    <span class="sub">Frames 22–23 · Results &amp; the Restoration Ceremony</span>
+  </div>
+
+  <!-- FRAME 22 -->
+  <div class="fb" style="top:92px;">
+    <div class="fbhead">
+      <div class="fnum"><span>Frame</span><b>22</b></div>
+      <h3>Level Result &amp; Child Reflection <small>LevelResultScreen.cs</small></h3>
+      <div class="fbchips"><span class="isl-chip">sfx_complete · sfx_collect</span><span class="isl-chip">ConfettiEffect</span></div>
+    </div>
+    <div class="fb-body">
+      <div class="mock fb-mock">
+        <img class="bg" src="assets/bg_village.jpg"><div class="scrim" style="background:rgba(15,36,61,0.42)"></div>
+        <div style="position:absolute; top:0; left:0; right:0; height:44px;">
+          <div style="position:absolute; top:6px; left:40px; width:5px; height:5px; border-radius:50%; background:#FFC53D;"></div>
+          <div style="position:absolute; top:18px; left:120px; width:4px; height:4px; border-radius:50%; background:#FF6FA5;"></div>
+          <div style="position:absolute; top:10px; left:210px; width:5px; height:5px; border-radius:50%; background:#38BDF8;"></div>
+          <div style="position:absolute; top:24px; left:300px; width:4px; height:4px; border-radius:50%; background:#34A853;"></div>
+          <div style="position:absolute; top:8px; left:400px; width:5px; height:5px; border-radius:50%; background:#FF9F1C;"></div>
+          <div style="position:absolute; top:20px; left:500px; width:4px; height:4px; border-radius:50%; background:#FFC53D;"></div>
+        </div>
+        <div style="position:absolute; top:34px; left:50%; transform:translateX(-50%); background:rgba(15,36,61,0.85); border:1.5px solid #C9962B; border-radius:10px; padding:5px 22px; font-size:15px; color:#FFC53D; font-weight:700;">Math Mountain Complete!</div>
+        <img class="ch" src="assets/obj_shard.png" style="width:52px; left:50%; margin-left:-26px; top:78px;">
+        <div style="position:absolute; top:140px; left:110px; width:370px; background:rgba(253,248,235,0.95); border:1px solid #C9962B; border-radius:10px; padding:9px 14px; text-align:center; font-size:10.5px; color:#1C2B3A; line-height:1.55;">
+          Stars earned: <b>18</b> (level best 18/18) · XP <b>+90</b> (total 640)<br>
+          <span style="color:#8F6A1F; font-weight:700;">Perfect! No hints used: +10 bonus XP</span><br>
+          <span style="font-weight:700;">You earned a Crystal Shard! ◆</span>
+        </div>
+        <div style="position:absolute; bottom:52px; left:0; right:0; text-align:center; font-size:10px; color:#FDF6E3; letter-spacing:1px;">What did you like most?</div>
+        <div style="position:absolute; bottom:24px; left:0; right:0; display:flex; justify-content:center; gap:12px;">
+          <span class="spill" style="font-size:9px; padding:4px 14px;">So fun!</span>
+          <span class="spill" style="font-size:9px; padding:4px 14px;">Tricky but I did it!</span>
+          <span class="gpill" style="font-size:10px; padding:4px 18px;">▶ Continue</span>
+          <span class="spill" style="font-size:9px; padding:4px 14px;">↻ Play Again</span>
+        </div>
+      </div>
+      <div class="fb-notes">
+        <div class="notecard"><h4>Pedagogical Note (LXD D3)</h4>
+          <p>The reflection prompt records the child&rsquo;s affective response into <b>SaveData</b> for the Parents Area, and auto-hides gracefully after 8s if ignored.</p></div>
+        <div class="notecard"><h4>FX</h4>
+          <p><b>sfx_complete</b> + <b>sfx_collect</b> with a confetti burst across the top; shard art spotlights the earned reward.</p></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- FRAME 23 -->
+  <div class="fb" style="top:436px;">
+    <div class="fbhead">
+      <div class="fnum"><span>Frame</span><b>23</b></div>
+      <h3>Grand Finale Victory &amp; Certificate <small>FinalResultScreen.cs</small></h3>
+      <div class="fbchips"><span class="isl-chip">bg_final.png · 42% scrim</span><span class="isl-chip">music_victory.wav</span></div>
+    </div>
+    <div class="fb-body">
+      <div class="mock fb-mock">
+        <img class="bg" src="assets/bg_final.jpg"><div class="scrim" style="background:rgba(15,36,61,0.42)"></div>
+        <div style="position:absolute; top:12px; left:50%; transform:translateX(-50%); background:rgba(15,36,61,0.85); border:1.5px solid #C9962B; border-radius:10px; padding:5px 20px; font-size:13px; color:#FFC53D; font-weight:700; white-space:nowrap;">You Saved the Kingdom!</div>
+        <div style="position:absolute; top:52px; left:0; right:0; display:flex; justify-content:center; align-items:center; gap:10px;">
+          <img src="assets/ui_trophy.png" style="width:26px; height:26px; object-fit:contain;">
+          <img src="assets/obj_crystal.png" style="width:40px; height:40px; object-fit:contain;">
+          <img src="assets/ui_trophy.png" style="width:26px; height:26px; object-fit:contain;">
+        </div>
+        <img class="ch" src="assets/char_king.png" style="width:92px; left:18px; top:70px;">
+        <img class="ch" src="assets/char_lexi.png" style="width:66px; right:96px; top:66px;">
+        <img class="ch" src="assets/char_lumo.png" style="width:60px; right:20px; top:96px;">
+        <div style="position:absolute; top:96px; left:128px; right:150px; background:rgba(253,248,235,0.96); border:1.5px solid #C9962B; border-radius:10px; padding:8px 12px; font-size:9.5px; color:#1C2B3A; line-height:1.5;">
+          <b style="font-size:10.5px; color:#8F6A1F;">Grand Master Trophy</b> — earned! · <b>Crystal of Knowledge Badge</b> — earned!<br>
+          <b>Certificate of Achievement — Hero A!</b> · Final score <b>970 XP</b> · Stars <b>261/261</b><br>
+          Skills good/mastered: <b>13/13</b> · Badges: Math Master, Word Explorer…
+        </div>
+        <div style="position:absolute; bottom:14px; left:0; right:0; display:flex; justify-content:center; gap:12px;">
+          <span class="spill" style="font-size:9px; padding:4px 14px;">View My Progress</span>
+          <span class="gpill" style="font-size:10px; padding:4px 18px;">Main Menu</span>
+        </div>
+      </div>
+      <div class="fb-notes">
+        <div class="notecard"><h4>Ceremony</h4>
+          <p><b>music_victory.wav</b> fanfare; King and Lexi flank the certificate while Lumo looks on — the full court celebrates the restored Crystal.</p></div>
+        <div class="notecard"><h4>Exit</h4>
+          <p><b>View My Progress</b> → Progress Report; <b>Main Menu</b> closes the loop back to Frame 02. Replay invites a new hero or harder age band.</p></div>
+      </div>
+    </div>
+  </div>
+  <div class="pfoot"><span><b>LUMO</b> · Visual &amp; Narrative Storyboard</span><span>Page 22 / 23</span></div>
+</div>
+
+<!-- ================= PAGE 23 · ART ASSET CATALOG ================= -->
+<div class="page">
+  <div class="phead">
+    <span class="kick">07 · Appendix</span>
+    <h2>Art Asset Catalog</h2>
+    <span class="sub">Assets/Resources/Art · characters 600×600 · backgrounds 1920×1080 · objects 256×256</span>
+  </div>
+  <div class="cat-wrap">
+    <div class="cat-row">
+      <h4>Backgrounds — one per island mood</h4>
+      <div class="cat-grid">
+        <div class="cat-item"><div class="cimg"><img class="wide" src="assets/bg_menu.jpg"></div><div class="cl">bg_menu</div></div>
+        <div class="cat-item"><div class="cimg"><img class="wide" src="assets/bg_village.jpg"></div><div class="cl">bg_village</div></div>
+        <div class="cat-item"><div class="cimg"><img class="wide" src="assets/bg_garden.jpg"></div><div class="cl">bg_garden</div></div>
+        <div class="cat-item"><div class="cimg"><img class="wide" src="assets/bg_bridge.jpg"></div><div class="cl">bg_bridge</div></div>
+        <div class="cat-item"><div class="cimg"><img class="wide" src="assets/bg_castle.jpg"></div><div class="cl">bg_castle</div></div>
+        <div class="cat-item"><div class="cimg"><img class="wide" src="assets/bg_library.jpg"></div><div class="cl">bg_library</div></div>
+        <div class="cat-item"><div class="cimg"><img class="wide" src="assets/bg_lab.jpg"></div><div class="cl">bg_lab</div></div>
+        <div class="cat-item"><div class="cimg"><img class="wide" src="assets/bg_mountain.jpg"></div><div class="cl">bg_mountain</div></div>
+        <div class="cat-item"><div class="cimg"><img class="wide" src="assets/bg_map.jpg"></div><div class="cl">bg_map</div></div>
+        <div class="cat-item"><div class="cimg"><img class="wide" src="assets/bg_kingdom.jpg"></div><div class="cl">bg_kingdom</div></div>
+        <div class="cat-item"><div class="cimg"><img class="wide" src="assets/bg_workshop.jpg"></div><div class="cl">bg_workshop</div></div>
+        <div class="cat-item"><div class="cimg"><img class="wide" src="assets/bg_final.jpg"></div><div class="cl">bg_final</div></div>
+      </div>
+    </div>
+    <div class="cat-row">
+      <h4>Objects — island icons &amp; manipulatives</h4>
+      <div class="cat-grid">
+        <div class="cat-item"><div class="cimg"><img class="sq" src="assets/obj_apple.png"></div><div class="cl">obj_apple</div></div>
+        <div class="cat-item"><div class="cimg"><img class="sq" src="assets/obj_banana.png"></div><div class="cl">obj_banana</div></div>
+        <div class="cat-item"><div class="cimg"><img class="sq" src="assets/obj_cat.png"></div><div class="cl">obj_cat</div></div>
+        <div class="cat-item"><div class="cimg"><img class="sq" src="assets/obj_dog.png"></div><div class="cl">obj_dog</div></div>
+        <div class="cat-item"><div class="cimg"><img class="sq" src="assets/obj_bird.png"></div><div class="cl">obj_bird</div></div>
+        <div class="cat-item"><div class="cimg"><img class="sq" src="assets/obj_fish.png"></div><div class="cl">obj_fish</div></div>
+        <div class="cat-item"><div class="cimg"><img class="sq" src="assets/obj_star.png"></div><div class="cl">obj_star</div></div>
+        <div class="cat-item"><div class="cimg"><img class="sq" src="assets/obj_key.png"></div><div class="cl">obj_key</div></div>
+        <div class="cat-item"><div class="cimg"><img class="sq" src="assets/obj_sun.png"></div><div class="cl">obj_sun</div></div>
+        <div class="cat-item"><div class="cimg"><img class="sq" src="assets/obj_cauldron.png"></div><div class="cl">obj_cauldron</div></div>
+        <div class="cat-item"><div class="cimg"><img class="sq" src="assets/obj_chest.png"></div><div class="cl">obj_chest</div></div>
+        <div class="cat-item"><div class="cimg"><img class="sq" src="assets/obj_gem.png"></div><div class="cl">obj_gem</div></div>
+        <div class="cat-item"><div class="cimg"><img class="sq" src="assets/obj_house.png"></div><div class="cl">obj_house</div></div>
+        <div class="cat-item"><div class="cimg"><img class="sq" src="assets/obj_tree.png"></div><div class="cl">obj_tree</div></div>
+        <div class="cat-item"><div class="cimg"><img class="sq" src="assets/obj_shard.png"></div><div class="cl">obj_shard</div></div>
+        <div class="cat-item"><div class="cimg"><img class="sq" src="assets/obj_crystal.png"></div><div class="cl">obj_crystal</div></div>
+        <div class="cat-item"><div class="cimg"><img class="sq" src="assets/obj_crown.png"></div><div class="cl">obj_crown</div></div>
+        <div class="cat-item"><div class="cimg"><img class="sq" src="assets/obj_basket.png"></div><div class="cl">obj_basket</div></div>
+        <div class="cat-item"><div class="cimg"><img class="sq" src="assets/obj_coin.png"></div><div class="cl">obj_coin</div></div>
+        <div class="cat-item"><div class="cimg"><img class="sq" src="assets/obj_ball.png"></div><div class="cl">obj_ball</div></div>
+      </div>
+    </div>
+    <div class="cat-row">
+      <h4>UI Kit — pills, medallions, badges &amp; trophy</h4>
+      <div class="cat-grid">
+        <div class="cat-item"><div class="cimg"><img class="sq" src="assets/ui_btn_gold.png"></div><div class="cl">ui_btn_gold</div></div>
+        <div class="cat-item"><div class="cimg"><img class="sq" src="assets/ui_slot.png"></div><div class="cl">ui_slot</div></div>
+        <div class="cat-item"><div class="cimg"><img class="sq" src="assets/ui_star.png"></div><div class="cl">ui_star</div></div>
+        <div class="cat-item"><div class="cimg"><img class="sq" src="assets/ui_shard.png"></div><div class="cl">ui_shard</div></div>
+        <div class="cat-item"><div class="cimg"><img class="sq" src="assets/ui_badge_math.png"></div><div class="cl">ui_badge_math</div></div>
+        <div class="cat-item"><div class="cimg"><img class="sq" src="assets/ui_badge_word.png"></div><div class="cl">ui_badge_word</div></div>
+        <div class="cat-item"><div class="cimg"><img class="sq" src="assets/ui_badge_puzzle.png"></div><div class="cl">ui_badge_puzzle</div></div>
+        <div class="cat-item"><div class="cimg"><img class="sq" src="assets/ui_badge_hero.png"></div><div class="cl">ui_badge_hero</div></div>
+        <div class="cat-item"><div class="cimg"><img class="sq" src="assets/ui_trophy.png"></div><div class="cl">ui_trophy</div></div>
+        <div class="cat-item"><div class="cimg"><img class="sq" src="assets/ui_check.png"></div><div class="cl">ui_check</div></div>
+        <div class="cat-item"><div class="cimg"><img class="sq" src="assets/ui_lock.png"></div><div class="cl">ui_lock</div></div>
+        <div class="cat-item"><div class="cimg"><img class="sq" src="assets/ui_arrow_up.png"></div><div class="cl">ui_arrow_up</div></div>
+      </div>
+    </div>
+  </div>
+  <div class="pfoot"><span><b>LUMO</b> · Visual &amp; Narrative Storyboard · Appendix</span><span>Page 23 / 23</span></div>
+</div>
+
+</body>
+</html>
